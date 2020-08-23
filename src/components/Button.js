@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class button extends Component {
     render() {
         let buttonContent =
-            <button>{this.props.buttonText}</button>
+            <button class="btn btn-primary">{this.props.buttonText}</button>
             ;
 
         let openInNewTab =
