@@ -1,0 +1,48 @@
+body {
+    /* background: rgb(104,31,153);
+background: linear-gradient(180deg, rgba(104,31,153,1) 25%, rgba(182,16,16,1) 50%, rgba(250,146,0,1) 75%); */
+background: rgb(99,7,161);
+background: linear-gradient(180deg, rgba(99,7,161,1) 25%, rgba(184,59,59,1) 50%, rgba(255,180,74,1) 75%);
+}
+
+h1 {
+    color: white;
+    font-family: 'Lobster', cursive;
+    font-size: 90px;
+}
+
+.button {
+    margin: 5px;
+    border-radius: 100px;
+    width:80%;
+    font-size:3.5vmin;
+}
+
+.button-override {
+    background-color: #6307a1;
+}
+
+.button-override:hover {
+    background-color: #470573;
+}
+
+.secondary-button {
+    margin: 5px;
+    border-radius: 100px;
+    width:80%;
+    font-size:3.5vmin;
+}
+
+#logo {
+    width: auto;
+    height: 300px;
+    margin-top:10vh;
+    margin-bottom: 10vh;
+    -webkit-filter: invert(1);
+    filter: invert(1);
+}
+
+#root {
+    position: relative;
+    text-align: center;
+}
