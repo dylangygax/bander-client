@@ -1,9 +1,10 @@
 import React from 'react';
+import MatchCard from "../components/MatchCard";
 
 const Home = () => {
     return (
-        <div>
-            <h1>DIS DA HOME PAGE</h1>
+        <div className="body">
+            <MatchCard />
         </div>
     );
 }

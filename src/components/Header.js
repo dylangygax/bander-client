@@ -5,12 +5,13 @@ const Header = () => {
     return (
         <header>
             <div className="logo">
-                <Link to={"/Home"}>Your budding music</Link>
+                <Link to={"/app/Home"}>Your budding music</Link>
             </div>
             <div className="links">
                 <ul>
-                    <li><Link to={"/Matches"}>who you're vibing with</Link></li>
-                    <li><Link to={"/Search"}>who we lookin for?</Link></li>
+                    <li><Link to={"/app/Matches"}>who you're vibing with</Link></li>
+                    <li><Link to={"/app/Search"}>who we lookin for?</Link></li>
+                    <li><Link to={"/app/Show"}>SHOW ME MY MATCH</Link></li>
                 </ul>
             </div>
         </header>

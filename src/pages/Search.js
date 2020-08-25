@@ -3,7 +3,17 @@ import React from 'react';
 const Search = () => {
     return (
         <div>
-            <h1>prison mike dot jpg</h1>
+            <form>
+                <h1>Search</h1>
+                <p>music field</p>
+                <input
+                    type="text"
+                />
+                <p>instruments field</p>
+                <input
+                    type="text"
+                />
+            </form>
         </div>
     );
 }
