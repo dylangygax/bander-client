@@ -1,6 +1,4 @@
 body {
-    /* background: rgb(104,31,153);
-background: linear-gradient(180deg, rgba(104,31,153,1) 25%, rgba(182,16,16,1) 50%, rgba(250,146,0,1) 75%); */
 background: rgb(99,7,161);
 background: linear-gradient(180deg, rgba(99,7,161,1) 25%, rgba(184,59,59,1) 50%, rgba(255,180,74,1) 75%);
 }
@@ -45,4 +43,11 @@ h1 {
 #root {
     position: relative;
     text-align: center;
+}
+
+#profile-image {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 10%;
 }
