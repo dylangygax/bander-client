@@ -2,9 +2,17 @@ import React from 'react';
 
 const Register = () => {
     return (
-        <div>
-            <h1>pls sign up with us I promise it'll be worth it pls bro</h1>
-        </div>
+        <form>
+            <h1>Register Below</h1>
+            <p>email</p>
+            <input
+                type="text"
+            />
+            <p>password</p>
+            <input
+                type="text"
+            />
+        </form>
     );
 }
 

@@ -1,10 +1,11 @@
 import React from 'react';
-import Header from "../components/Header"
+// import MatchCard from "../components/MatchCard";
 
 const Home = () => {
     return (
-        <div>
+        <div className="body">
             <h1>DIS DA HOME PAGE</h1>
+            {/* <MatchCard /> */}
         </div>
     );
 }

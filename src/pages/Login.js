@@ -9,7 +9,7 @@ const Login = () => {
             <div className="col-12">
                 <img id="logo" src={process.env.PUBLIC_URL + "/images/Clef-Note.png"} />
             </div>
-            <div id="login-button-container button-override" className="justify-content-center flex-column col-12">
+            <div id="login-button-container" className="justify-content-center flex-column col-12">
                 <Button buttonText="Login" url={"http://www.neopets.com"} openInNewTab={true} />
                 <Button buttonText="Register" url={"http://localhost:3000/app/register"} />
             </div>
