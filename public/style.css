@@ -1,15 +1,18 @@
-body {
-    text-align: center;
-    margin: auto;
-}
-
 .button {
-    width: 15%;
+    margin: 5px;
+    border-radius: 100px;
+    width:80%;
+    font-size:3.5vmin;
 }
 
 #logo {
+    width: auto;
+    height: 300px;
+    margin-top:10vh;
+    margin-bottom: 10vh;
+}
+
+#root {
+    position: relative;
     text-align: center;
-    height: 100px;
-    width: 100px;
-    margin: auto;
 }

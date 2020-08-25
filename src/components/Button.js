@@ -2,24 +2,26 @@ import React, { Component } from 'react';
 
 class button extends Component {
     render() {
-        let buttonContent =
-            <button className="btn btn-primary button">{this.props.buttonText}</button>
-            ;
+        let buttonContent;
 
         let openInNewTab =
-            <a href={this.props.url} target="_blank">
-                {buttonContent}
+            <a className="btn btn-primary button" href={this.props.url} target="_blank">
+                {this.props.buttonText}
             </a>
             ;
 
         let openSameTab =
-            <a href={this.props.url}>
-                {buttonContent}
+            <a className="btn btn-primary button" href={this.props.url}>
+                {this.props.buttonText}
             </a>
             ;
 
-        if (this.props.openInNewTab) return openInNewTab;
-        else return openSameTab;
+        if (this.props.openInNewTab) {
+            return openInNewTab;
+        }
+        else {
+            return openSameTab;
+        }
     }
 }
 
