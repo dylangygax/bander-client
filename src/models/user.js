@@ -10,4 +10,18 @@ export default class UserModel {
             body: JSON.stringify(data)
         }).then(res => res.json())
     }
+
+    static login(credentials) {
+        console.log('in login in user model')
+        console.log(credentials)
+        return fetch(`${REACT_APP_API_URL}/auth/login`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            credentials: 'include',
+            body: JSON.stringify(credentials)
+        }).then(res => res.json())
+    }
+
 }
