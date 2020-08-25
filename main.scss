@@ -1,0 +1,12 @@
+$theme-colors: (
+  "primary": #00d945,
+  "danger": #ff36f2,
+  "btn-primary": #ff36f2
+);
+
+@import "node_modules/bootstrap/scss/bootstrap";
+
+.main-form {
+  width: 450px;
+  margin: auto;
+}
