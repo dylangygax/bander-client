@@ -22,6 +22,18 @@ export default class UserModel {
         }).then(res => res.json())
     }
 
+    //to update user in database. for settings page/ logging likes, matches, etc. 
+    static update(userID, updateObject) {
+        return fetch(`${REACT_APP_API_URL}/users/${userID}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(updateObject)
+        }).then(res => res.json())
+    }
+
+    //AUTH METHODS
     //for registering a new user
     static create(data) {
         return fetch(`${REACT_APP_API_URL}/auth/register`, {
