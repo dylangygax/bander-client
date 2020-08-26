@@ -1,26 +1,26 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCoffee } from '@fortawesome/free-solid-svg-icons'
+import { faSearch, faCog, faMusic, faPeopleArrows } from '@fortawesome/free-solid-svg-icons'
 
 const Header = () => {
     return (
-        <header>
-            <div className="logo">
-                <Link to={"/app/Home"}>Your budding music</Link>
+        <nav className="header  fixed-top p-2">
+            <div className="links d-flex justify-content-around p-1">
+                <Link className="header-font  " to={"/app/Home"}>home
+                    <FontAwesomeIcon icon={faMusic} />
+                </Link>
+                <Link className="header-font " to={"/app/Matches"}>settings
+                    <FontAwesomeIcon icon={faCog} />
+                </Link>
+                <Link className="header-font " to={"/app/Search"}>search
+                    <FontAwesomeIcon icon={faSearch} />
+                </Link>
+                <Link className="header-font " to={"/app/Matches"}>matches
+                    <FontAwesomeIcon icon={faPeopleArrows} />
+                </Link>
             </div>
-            <div className="links">
-                <ul>
-                    <li>
-                        <Link to={"/app/Matches"}>
-                            <FontAwesomeIcon icon={faCoffee} />
-                        </Link>
-                    </li>
-                    <li><Link to={"/app/Search"}>who we lookin for?</Link></li>
-                    <li><Link to={"/app/Show"}>SHOW ME MY MATCH</Link></li>
-                </ul>
-            </div>
-        </header>
+        </nav>
     );
 }
 
