@@ -24,7 +24,7 @@ class Register extends Component {
             .then(data => {
                 console.log(data)
                 this.setState({
-                    name: '',
+                    username: '',
                     email: '',
                     password: '',
                     password2: ''
