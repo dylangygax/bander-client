@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
+import Footer from "../components/Footer";
 
 class MatchCard extends Component {
     render() {
         return (
-            <div className="m-3">
-                <div className="card">
+            <div>
+                <div div className="card match-card flex-column col-12">
                     <div className="card-body">
+                        <img className="profile-image flex-column col-12" src="https://thispersondoesnotexist.com/image" />
                         <h2 className="card-title">{this.props.username}</h2>
                         <h3 className="card-subtitle">{this.props.instrument}</h3>
-                        <img className="profile-image" src="https://thispersondoesnotexist.com/image" />
                         <p className="card-text">{this.props.bio}</p>
                         <a href="http://neopets.com" className="card-link">spotify link</a>
                     </div>
                 </div>
+                <Footer />
             </div>
         );
     }
