@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import UserModel from '../models/user'
 import cors from 'cors'
+import Button from "../components/Button"
 
 class Register extends Component {
     state = {
@@ -9,7 +10,7 @@ class Register extends Component {
         password: '',
         password2: ''
     }
-    
+
     handleChange = (event) => {
         this.setState({
             [event.target.name]: event.target.value
@@ -32,47 +33,50 @@ class Register extends Component {
         //NEED TO LOG THE USER IN SOMEHOW
 
         //REDIRECT?
-        this.props.history.push('/app/search')
+        this.props.history.push('/app/settings')
     }
 
-    render () {
+    render() {
         return (
-            <form onSubmit={this.handleSubmit}>
-                <h1>Register Below</h1>
-                <p>email</p>
+            <form className="form-group" onSubmit={this.handleSubmit}>
+                <h1 className="m-5">Register Below</h1>
+                <label className="reg-text" for="InputEmail">Email address</label>
+                {/* <p className="form-control">email</p> */}
                 <input
+                    type="email" className="form-control" id="InputEmail" aria-describedby="emailHelp" placeholder="Enter email"
                     onChange={this.handleChange}
                     type="text"
                     id="email"
                     name="email"
                     value={this.state.email}
                 />
-                <p>username</p>
+                <label className="reg-text text-left" for="InputUsername">Username</label>
                 <input
+                    type="username" className="form-control" id="InputUsername" aria-describedby="usernameHelp" placeholder="Enter username"
                     onChange={this.handleChange}
                     type="text"
                     id="username"
                     name="username"
                     value={this.state.username}
                 />
-                <p>password</p>
+                <label className="reg-text" for="InputPassword">Password</label>
                 <input
                     onChange={this.handleChange}
-                    type="password"
+                    type="password" className="form-control" id="InpuPassword" aria-describedby="passwordHelp" placeholder="Enter password"
                     id="password"
                     name="password"
                     value={this.state.password}
                 />
-                <p>confirm password</p>
+                <label className="reg-text" for="InputPassword">Confirm Password</label>
                 <input
                     onChange={this.handleChange}
-                    type="password"
+                    type="password" className="form-control" id="InpuPassword" aria-describedby="passwordHelp" placeholder="Enter password"
                     id="password2"
                     name="password2"
                     value={this.state.password2}
                 />
                 <br />
-                <button type="submit">Register</button>
+                <Button className="" type="submit">Register</Button>
             </form>
         );
     }

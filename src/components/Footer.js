@@ -7,14 +7,14 @@ const Footer = () => {
     return (
         <nav className="footer  fixed-bottom p-2">
             <div className="links d-flex justify-content-around p-1">
-                <Link className="footer-font  " to={"/app/Home"}>like
-                    <FontAwesomeIcon icon={faCheck} />
+                <Link className="footer-font " to={"/app/Search"}>
+                    <FontAwesomeIcon icon={faTimes} />
                 </Link>
-                <Link className="footer-font " to={"/app/Matches"}>messages
+                <Link className="footer-font " to={"/app/GeneralMessages"}>
                     <FontAwesomeIcon icon={faComment} />
                 </Link>
-                <Link className="footer-font " to={"/app/Search"}>dislike
-                    <FontAwesomeIcon icon={faTimes} />
+                <Link className="footer-font  " to={"/app/Home"}>
+                    <FontAwesomeIcon icon={faCheck} />
                 </Link>
             </div>
         </nav>
