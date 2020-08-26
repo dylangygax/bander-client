@@ -1,14 +1,21 @@
-import React from "react";
+import React, {useState} from "react";
 import initRoute from "./config/initRoute";
 import "./App.css"
 
 
-function App() {
-  return (
-    <div>
-      {initRoute}
-    </div>
-  );
+function App(props) {
+    const [currentUser, setCurrentUser] = useState(localStorage.getItem('uid'))
+    
+    const storeUser = (userId) => {
+        setCurrentUser({currentUser: userId})
+        localStorage.setItem('uid', userId)
+    }
+    
+    return (
+        <div>
+            {initRoute}
+        </div>
+    );
 }
 
 export default App;
