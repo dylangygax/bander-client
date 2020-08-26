@@ -1,24 +1,58 @@
-import React from 'react';
-import Button from "../components/Button";
-import SecondaryButton from "../components/SecondaryButton";
+import React, {Component} from 'react'
+import UserModel from '../models/user'
 
-const Login = () => {
+class LoginForm extends Component {
+    state = {
+        email: '',
+        password: '',
+    }
 
-    return (
-        <div>
-            <h1 className="col-12">Bander </h1>
-            <div className="col-12">
-                <img id="logo" src={process.env.PUBLIC_URL + "/images/Clef-Note.png"} />
-            </div>
-            <div id="login-button-container" className="justify-content-center flex-column col-12">
-                <Button buttonText="Login" url={"http://localhost:3000/login"} />
-                <Button buttonText="Register" url={"http://localhost:3000/app/register"} />
-            </div>
-            <div id="login-button-container" className="justify-content-center flex-column col-12">
-                <SecondaryButton buttonText="Continue without Logging in" url={"http://localhost:3000/app/home"} />
-            </div>
-        </div>
-    );
+    handleChange = (event) => {
+        this.setState({
+            [event.target.name]: event.target.value,
+        })
+    }
+
+    handleSubmit = (event) => {
+        event.preventDefault()
+        
+        UserModel.login(this.state)
+            .then(data => {
+                console.log(data)
+                if (!data.user) {
+                    return false
+                }
+                this.props.storeUser(data.user) ///THIS LINE IS ERRING. MORE TO SET UP
+                this.props.history.push('/profile')
+            })
+            .catch(err => console.log(err))
+    }
+
+    render () {
+        return (
+            <form onSubmit={this.handleSubmit}>
+                <h1>Login Login Login</h1>
+                <p>email</p>
+                <input
+                    onChange={this.handleChange}
+                    type="text"
+                    id="email"
+                    name="email"
+                    value={this.state.email}
+                />
+                <p>password</p>
+                <input
+                    onChange={this.handleChange}
+                    type="password"
+                    id="password"
+                    name="password"
+                    value={this.state.password}
+                />
+                <br />
+                <button type="submit">Login</button>
+            </form>
+        );
+    }
 }
 
-export default Login;
+export default LoginForm

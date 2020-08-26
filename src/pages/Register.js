@@ -38,45 +38,65 @@ class Register extends Component {
 
     render() {
         return (
-            <form className="form-group" onSubmit={this.handleSubmit}>
+            <form className="form-group " onSubmit={this.handleSubmit}>
                 <h1 className="m-5">Register Below</h1>
-                <label className="reg-text" for="InputEmail">Email address</label>
-                {/* <p className="form-control">email</p> */}
-                <input
-                    type="email" className="form-control" id="InputEmail" aria-describedby="emailHelp" placeholder="Enter email"
-                    onChange={this.handleChange}
-                    type="text"
-                    id="email"
-                    name="email"
-                    value={this.state.email}
-                />
-                <label className="reg-text text-left" for="InputUsername">Username</label>
-                <input
-                    type="username" className="form-control" id="InputUsername" aria-describedby="usernameHelp" placeholder="Enter username"
-                    onChange={this.handleChange}
-                    type="text"
-                    id="username"
-                    name="username"
-                    value={this.state.username}
-                />
-                <label className="reg-text" for="InputPassword">Password</label>
-                <input
-                    onChange={this.handleChange}
-                    type="password" className="form-control" id="InpuPassword" aria-describedby="passwordHelp" placeholder="Enter password"
-                    id="password"
-                    name="password"
-                    value={this.state.password}
-                />
-                <label className="reg-text" for="InputPassword">Confirm Password</label>
-                <input
-                    onChange={this.handleChange}
-                    type="password" className="form-control" id="InpuPassword" aria-describedby="passwordHelp" placeholder="Enter password"
-                    id="password2"
-                    name="password2"
-                    value={this.state.password2}
-                />
-                <br />
-                <Button className="" type="submit">Register</Button>
+                <div className="row d-flex justify-content-center m-3 text-center">
+                    <div className="col-12">
+                        <label className="reg-text form-row"
+                            htmlFor="InputEmail">Email Address</label>
+                    </div>
+                    {/* <p className="form-control">email</p> */}
+                    <input
+                        type="email"
+                        className="form-text form-control col-5 text-xl-left m-3"
+                        aria-describedby="emailHelp"
+                        placeholder="Enter email"
+                        onChange={this.handleChange}
+                        type="text"
+                        id="email InputEmail"
+                        name="email"
+                        value={this.state.email}
+                    />
+                    <label className="reg-text form-row"
+                        htmlFor="InputUsername">Username</label>
+                    <input
+                        type="username"
+                        className="form-text form-control col-5 text-xl-left m-3"
+                        aria-describedby="usernameHelp"
+                        placeholder="Enter username"
+                        onChange={this.handleChange}
+                        type="text"
+                        id="username InputUsername"
+                        name="username"
+                        value={this.state.username}
+                    />
+                    <label className="reg-text form-row"
+                        htmlFor="InputPassword">Password</label>
+                    <input
+                        onChange={this.handleChange}
+                        type="password"
+                        className="form-text form-control col-5 text-xl-left m-3"
+                        aria-describedby="passwordHelp"
+                        placeholder="Enter password"
+                        id="password InpuPassword"
+                        name="password"
+                        value={this.state.password}
+                    />
+                    <label className="reg-text form-row"
+                        htmlFor="InputPassword">Confirm Password</label>
+                    <input
+                        onChange={this.handleChange}
+                        type="password"
+                        className="form-text form-control col-5 text-xl-left m-3"
+                        aria-describedby="passwordHelp"
+                        placeholder="Enter password"
+                        id="password2 InpuPassword"
+                        name="password2"
+                        value={this.state.password2}
+                    />
+                    <br />
+                    <button className="btn btn-primary" type="submit">Register</button>
+                </div>
             </form>
         );
     }
