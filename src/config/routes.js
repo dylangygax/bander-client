@@ -6,7 +6,8 @@ import Register from "../pages/Register";
 import Search from "../pages/Search";
 import Matches from "../pages/Matches";
 import UserShow from "../pages/Show";
-import LoginForm from "../pages/Login2"
+import Settings from "../pages/Settings"
+// import LoginForm from "../pages/Login2"
 // import GeneralMessages from "../pages/GeneralMessages";
 // import Messages from "../pages/Messages";
 
@@ -17,7 +18,8 @@ export default (
         <Route path="/app/Search" component={Search} />
         <Route path="/app/Matches" component={Matches} />
         <Route path="/app/Show/:id" component={UserShow} />
-        <Route path="/app/login" component={LoginForm} />
+        <Route path="/app/Settings" component={Settings} />
+        {/* <Route path="/app/login" component={LoginForm} /> */}
         {/* <Route path="/GeneralMessages" component={GeneralMessages} />
         <Route path="/Messages" component={Messages} /> */}
     </Switch>
