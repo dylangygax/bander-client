@@ -37,7 +37,7 @@ const LoginForm = () => {
         UserModel.login(userToLog)
             .then(data => {
                 console.log(data)
-                if (!data.user) {
+                if (!data._id) {
                     return false
                 }
                 //props.storeUser(data.user) ///LINE IS ERRING. MORE TO SET UP
@@ -55,7 +55,7 @@ const LoginForm = () => {
     // render () {
         return (
             <div>
-                <h1>Hello {loggedInUser.user}</h1>
+                <h1>Hello {loggedInUser._id}</h1>
                 <form onSubmit={handleSubmit}>
                     <h1>Login Login Login</h1>
                     <p>email</p>
