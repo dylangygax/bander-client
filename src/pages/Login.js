@@ -3,7 +3,7 @@ import React, {Component, useContext, useState} from 'react'
 import UserModel from '../models/user'
 import {UserContext} from '../UserContext'
 
-const LoginForm = () => {    
+const LoginForm = (props) => {    
     // state = {
     //     email: '',
     //     password: '',
@@ -49,13 +49,14 @@ const LoginForm = () => {
                 setUser(data)
                 //console.log(props.loggedInUser)
                 //props.history.push('/profile')
-                //TO DO: REDIRECT ?????<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+                
+                //REDIRECT
+                props.history.push('/profile')
             })
             .catch(err => {
                 setErrorDisplayText('Invalid Login/Password')
                 console.log(err)
             })
-        //props.history.push('/profile')
     }
     
     // render () {
