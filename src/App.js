@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import initRoute from "./config/initRoute";
-import "./App.css"
-//import "../public/app/style.css"
+import 'semantic-ui-css/semantic.min.css';
+import "./App.css";
+import "./app/main.css";
+import "./app/style.css";
 
 
 function App(props) {
