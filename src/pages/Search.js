@@ -1,40 +1,35 @@
 import React from 'react';
+import { Dropdown } from 'semantic-ui-react';
 
-const Search = () => {
-    return (
+const options = [
+    { key: 'angular', text: 'Angular', value: 'angular' },
+    { key: 'css', text: 'CSS', value: 'css' },
+    { key: 'design', text: 'Graphic Design', value: 'design' },
+    { key: 'ember', text: 'Ember', value: 'ember' },
+    { key: 'html', text: 'HTML', value: 'html' },
+    { key: 'ia', text: 'Information Architecture', value: 'ia' },
+    { key: 'javascript', text: 'Javascript', value: 'javascript' },
+    { key: 'mech', text: 'Mechanical Engineering', value: 'mech' },
+    { key: 'meteor', text: 'Meteor', value: 'meteor' },
+    { key: 'node', text: 'NodeJS', value: 'node' },
+    { key: 'plumbing', text: 'Plumbing', value: 'plumbing' },
+    { key: 'python', text: 'Python', value: 'python' },
+    { key: 'rails', text: 'Rails', value: 'rails' },
+    { key: 'react', text: 'React', value: 'react' },
+    { key: 'repair', text: 'Kitchen Repair', value: 'repair' },
+    { key: 'ruby', text: 'Ruby', value: 'ruby' },
+    { key: 'ui', text: 'UI Design', value: 'ui' },
+    { key: 'ux', text: 'User Experience', value: 'ux' },
+]
+
+const Search = () => (
+    <div className="container-fluid">
+        <h2>PLS PLS PLS PLS TEST PLS TY</h2>
         <div>
-            <form>
-                <h1>Search</h1>
-                <p>music field</p>
-                <select name="skills" multiple="" class="ui fluid dropdown">
-                    <option value="">Skills</option>
-                    <option value="angular">Angular</option>
-                    <option value="css">CSS</option>
-                    <option value="design">Graphic Design</option>
-                    <option value="ember">Ember</option>
-                    <option value="html">HTML</option>
-                    <option value="ia">Information Architecture</option>
-                    <option value="javascript">Javascript</option>
-                    <option value="mech">Mechanical Engineering</option>
-                    <option value="meteor">Meteor</option>
-                    <option value="node">NodeJS</option>
-                    <option value="plumbing">Plumbing</option>
-                    <option value="python">Python</option>
-                    <option value="rails">Rails</option>
-                    <option value="react">React</option>
-                    <option value="repair">Kitchen Repair</option>
-                    <option value="ruby">Ruby</option>
-                    <option value="ui">UI Design</option>
-                    <option value="ux">User Experience</option>
-                </select>
-
-                <p>instruments field</p>
-                <input
-                    type="text"
-                />
-            </form>
+            <Dropdown placeholder='Skills' fluid multiple selection options={options} />
         </div>
-    );
-}
+    </div>
+
+)
 
 export default Search;
