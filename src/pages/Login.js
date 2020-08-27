@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import UserModel from '../models/user'
 
 class LoginForm extends Component {
@@ -15,7 +15,7 @@ class LoginForm extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault()
-        
+
         UserModel.login(this.state)
             .then(data => {
                 console.log(data)
@@ -28,29 +28,33 @@ class LoginForm extends Component {
             .catch(err => console.log(err))
     }
 
-    render () {
+    render() {
         return (
-            <form onSubmit={this.handleSubmit}>
-                <h1>Login Login Login</h1>
-                <p>email</p>
-                <input
-                    onChange={this.handleChange}
-                    type="text"
-                    id="email"
-                    name="email"
-                    value={this.state.email}
-                />
-                <p>password</p>
-                <input
-                    onChange={this.handleChange}
-                    type="password"
-                    id="password"
-                    name="password"
-                    value={this.state.password}
-                />
-                <br />
-                <button type="submit">Login</button>
-            </form>
+            <div>
+                <div className="bg-white p-5 search-container">
+                    <form onSubmit={this.handleSubmit}>
+                        <h3>Login</h3>
+                        <p>email</p>
+                        <input
+                            onChange={this.handleChange}
+                            type="text"
+                            id="email"
+                            name="email"
+                            value={this.state.email}
+                        />
+                        <p>password</p>
+                        <input
+                            onChange={this.handleChange}
+                            type="password"
+                            id="password"
+                            name="password"
+                            value={this.state.password}
+                        />
+                        <br />
+                        <button type="submit">Login</button>
+                    </form>
+                </div>
+            </div>
         );
     }
 }
