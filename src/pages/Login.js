@@ -11,6 +11,7 @@ const LoginForm = () => {
 
     const [inputEmail, setInputEmail] = useState('')
     const [inputPassword, setInputPassword] = useState('')
+    const [errorDisplayText, setErrorDisplayText] = useState('pizza')
 
     const [loggedInUser, setUser] = useContext(UserContext)
 
@@ -38,6 +39,7 @@ const LoginForm = () => {
             .then(data => {
                 console.log(data)
                 if (!data._id) {
+                    setErrorDisplayText('Invalid Login/Password')
                     return false
                 }
                 //props.storeUser(data.user) ///LINE IS ERRING. MORE TO SET UP
@@ -47,8 +49,12 @@ const LoginForm = () => {
                 setUser(data)
                 //console.log(props.loggedInUser)
                 //props.history.push('/profile')
+                //TO DO: REDIRECT ?????<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+                setErrorDisplayText('Invalid Login/Password')
+                console.log(err)
+            })
         //props.history.push('/profile')
     }
     
@@ -56,6 +62,7 @@ const LoginForm = () => {
         return (
             <div>
                 <h1>Hello {loggedInUser._id}</h1>
+                <h3>{errorDisplayText}</h3>
                 <form onSubmit={handleSubmit}>
                     <h1>Login Login Login</h1>
                     <p>email</p>
