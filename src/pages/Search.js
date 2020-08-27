@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dropdown, Divider } from 'semantic-ui-react';
+import { Dropdown } from 'semantic-ui-react';
 import Button from "../components/Button"
 
 const avanteGarde = [
@@ -87,7 +87,8 @@ const Search = () => (
             <h2 className="m-3 b">Search</h2>
             <h4 className="m-4">Music Genres</h4>
             <h5 className="text-left">Avante Garde</h5>
-            <Dropdown className="m-2" placeholder='Avante Garde' fluid multiple selection options={avanteGarde} />
+            <Dropdown className="m-2"
+                placeholder='Avante Garde' fluid multiple selection options={avanteGarde} />
             <h5 className="text-left">Blues</h5>
             <Dropdown className="m-2" placeholder='Blues' fluid multiple selection options={blues} />
             <h5 className="text-left">Carribean</h5>
@@ -95,7 +96,7 @@ const Search = () => (
             <h5 className="text-left">Carribean</h5>
             <Dropdown className="m-2" placeholder='Caribbean' fluid multiple selection options={caribbean} />
             <div className="justify-content-center flex-column col-12">
-                <div class="ui divider" />
+                <div className="ui divider" />
                 <h4 className="m-4">Instruments</h4>
                 <h5 className="text-left">Avante Garde</h5>
                 <Dropdown className="m-2" placeholder='Avante Garde' fluid multiple selection options={avanteGarde} />
