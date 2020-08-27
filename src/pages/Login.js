@@ -1,3 +1,4 @@
+
 import React, {Component, useContext, useState} from 'react'
 import UserModel from '../models/user'
 import {UserContext} from '../UserContext'
@@ -50,7 +51,7 @@ const LoginForm = () => {
             .catch(err => console.log(err))
         //props.history.push('/profile')
     }
-
+    
     // render () {
         return (
             <div>

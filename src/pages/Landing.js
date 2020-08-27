@@ -15,7 +15,7 @@ const Landing = () => {
                 <Button buttonText="Register" url={"http://localhost:3000/app/register"} />
             </div>
             <div id="login-button-container" className="justify-content-center flex-column col-12">
-                <SecondaryButton buttonText="Continue without Logging in" url={"http://localhost:3000/app/home"} />
+                <SecondaryButton buttonText="Continue Without Logging In" url={"http://localhost:3000/app/home"} />
             </div>
         </div>
     );

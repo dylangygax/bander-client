@@ -3,6 +3,7 @@ body {
 background: linear-gradient(180deg, rgba(104,31,153,1) 25%, rgba(182,16,16,1) 50%, rgba(250,146,0,1) 75%); */
 background: rgb(99,7,161);
 background: linear-gradient(180deg, rgba(99,7,161,1) 25%, rgba(184,59,59,1) 50%, rgba(255,180,74,1) 75%);
+overflow-y: hidden;
 }
 
 h1 {
@@ -16,6 +17,7 @@ h1 {
     border-radius: 100px;
     width:80%;
     font-size:3.5vmin;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .button-override {
@@ -59,6 +61,7 @@ h1 {
     box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.214);
     background-color: rgba(255, 255, 255, 0);
     margin-top: 80px;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .header-font {
@@ -95,4 +98,31 @@ h1 {
     background-color: rgba(255, 255, 255, 0.111);
     text-align: left;
     color: white;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.form-row {
+    text-align: left;
+    color: black;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 25px;
+
+}
+
+.search-container {
+    box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.084);
+    background-color: rgba(255, 255, 255, 0.043);
+    margin-top: 15vh;
+    float: left;
+    overflow-y: scroll;
+    height: 70vh;
+    width: 100%;
+}
+
+.match-container {
+    box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.084);
+    background-color: rgba(255, 255, 255, 0.043);
+    overflow-y: scroll;
+    height: 70vh;
+    width: 800px;
 }
