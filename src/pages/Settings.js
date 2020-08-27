@@ -29,27 +29,31 @@ class Settings extends Component {
 
     render() {
         return (
-            <form className="form-group " onSubmit={this.handleSubmit}>
-                <h1 className="m-5">Settings</h1>
-                <div className="row d-flex justify-content-center m-3 text-center">
-                    <div className="col-12">
-                        <label className="reg-text form-row"
-                            htmlFor="InputEmail">B i 0</label>
-                    </div>
-                    <input
-                        className="form-text form-control col-5 text-xl-left m-3"
-                        aria-describedby="emailHelp"
-                        placeholder="Enter bio here"
-                        onChange={this.handleChange}
-                        type="text"
-                        id="email InputEmail"
-                        name="bio"
-                        value={this.state.bio}
-                    />
-                    <br />
-                    <button className="btn btn-primary" type="submit">Update</button>
+            <div>
+                <div className="bg-white p-5 search-container">
+                    <form className="form-group " onSubmit={this.handleSubmit}>
+                        <h2 className="m-5">Settings</h2>
+                        <div className="row d-flex justify-content-center m-3 text-center">
+                            <div className="col-12">
+                                <label className="reg-text form-row"
+                                    htmlFor="InputEmail">B i 0</label>
+                            </div>
+                            <input
+                                className="form-text form-control col-5 text-xl-left m-3"
+                                aria-describedby="emailHelp"
+                                placeholder="Enter bio here"
+                                onChange={this.handleChange}
+                                type="text"
+                                id="email InputEmail"
+                                name="bio"
+                                value={this.state.bio}
+                            />
+                            <br />
+                            <button className="btn btn-primary" type="submit">Update</button>
+                        </div>
+                    </form>
                 </div>
-            </form>
+            </div>
         );
     }
 }
