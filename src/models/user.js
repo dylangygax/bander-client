@@ -59,6 +59,9 @@ export default class UserModel {
         }).then(res => res.json())
     }
 
+//http://localhost:4000/api/v1/auth/login
+//http://localhost:4000/api/v1/auth/login
+
     //logout
     //coming soon
 }

@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import initRoute from "./config/initRoute";
+import {UserContext, UserContextProvider} from "./UserContext"
 import "./App.css"
 
 
@@ -13,7 +14,9 @@ function App(props) {
     
     return (
         <div>
-            {initRoute}
+            <UserContextProvider>
+                {initRoute}
+            </UserContextProvider>
         </div>
     );
 }

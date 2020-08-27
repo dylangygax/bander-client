@@ -1,58 +1,84 @@
-import React, {Component} from 'react'
+import React, {Component, useContext, useState} from 'react'
 import UserModel from '../models/user'
+import {UserContext} from '../UserContext'
 
-class LoginForm extends Component {
-    state = {
-        email: '',
-        password: '',
+const LoginForm = () => {    
+    // state = {
+    //     email: '',
+    //     password: '',
+    // }
+
+    const [inputEmail, setInputEmail] = useState('')
+    const [inputPassword, setInputPassword] = useState('')
+
+    const [loggedInUser, setUser] = useContext(UserContext)
+
+    const handleEmailChange = (event) => {
+        setInputEmail(event.target.value)
     }
 
-    handleChange = (event) => {
-        this.setState({
-            [event.target.name]: event.target.value,
-        })
+    const handlePasswordChange = (event) => {
+        setInputPassword(event.target.value)
     }
 
-    handleSubmit = (event) => {
+    const handleSubmit = (event) => {
         event.preventDefault()
-        
-        UserModel.login(this.state)
+        const userToLog = {
+            email: inputEmail,
+            password: inputPassword,
+        }
+        console.log(userToLog)
+        // this will update context value
+        setUser(userToLog)
+          
+        setInputEmail('')
+        setInputPassword('')
+        UserModel.login(userToLog)
             .then(data => {
                 console.log(data)
                 if (!data.user) {
                     return false
                 }
-                this.props.storeUser(data.user) ///THIS LINE IS ERRING. MORE TO SET UP
-                this.props.history.push('/profile')
+                //props.storeUser(data.user) ///LINE IS ERRING. MORE TO SET UP
+                //console.log(props.loggedInUser)
+                console.log(data)
+                //console.log(data.user)
+                setUser(data)
+                //console.log(props.loggedInUser)
+                //props.history.push('/profile')
             })
             .catch(err => console.log(err))
+        //props.history.push('/profile')
     }
 
-    render () {
+    // render () {
         return (
-            <form onSubmit={this.handleSubmit}>
-                <h1>Login Login Login</h1>
-                <p>email</p>
-                <input
-                    onChange={this.handleChange}
-                    type="text"
-                    id="email"
-                    name="email"
-                    value={this.state.email}
-                />
-                <p>password</p>
-                <input
-                    onChange={this.handleChange}
-                    type="password"
-                    id="password"
-                    name="password"
-                    value={this.state.password}
-                />
-                <br />
-                <button type="submit">Login</button>
-            </form>
+            <div>
+                <h1>Hello {loggedInUser.user}</h1>
+                <form onSubmit={handleSubmit}>
+                    <h1>Login Login Login</h1>
+                    <p>email</p>
+                    <input
+                        onChange={handleEmailChange}
+                        type="text"
+                        id="email"
+                        name="email"
+                        value={inputEmail}
+                    />
+                    <p>password</p>
+                    <input
+                        onChange={handlePasswordChange}
+                        type="password"
+                        id="password"
+                        name="password"
+                        value={inputPassword}
+                    />
+                    <br />
+                    <button type="submit">Login</button>
+                </form>
+            </div>
         );
-    }
+    // }
 }
 
 export default LoginForm
