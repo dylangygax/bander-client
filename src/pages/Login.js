@@ -50,7 +50,7 @@ const LoginForm = (props) => {
                 // localStorage.setItem('uid', data._id)
                 // localStorage.setItem('username', data.username)
                 for (let property in data) {
-                    console.log(`${property}: ${data[property]}`)
+                    //console.log(`${property}: ${data[property]}`)
                     localStorage.setItem(`${property}`, `${data[property]}`);
                 }
                 console.log(localStorage.getItem('uid'))

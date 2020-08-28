@@ -41,19 +41,19 @@ const Settings = (props) => {
         UserModel.logout()
             .then(response => {
                 console.log(response)
-                if (response === 'logout successful') {
-                    setUser(null)
-                    //REDIRECT
-                    props.history.push('/')
-                }
+                localStorage.clear()
+                //REDIRECT
+                props.history.push('/')
+                setUser(null)
+                //REDIRECT
             })
     }
 
     const handleDelete = (event) => {
         event.preventDefault()
         console.log('in handle delete')
-        const userIdDelete = '5f41b09dc120779230299a19' //TEMPORARILY HARDCODED
-        UserModel.delete(userIdDelete)
+        //const userIdDelete = '5f41b09dc120779230299a19' //TEMPORARILY HARDCODED
+        UserModel.delete(loggedInUser._id)
             .then(response => {
                 console.log(response)
             })
@@ -64,7 +64,7 @@ const Settings = (props) => {
     // render() {
         return (
             <div>
-                <h1>Hello {loggedInUser.instrument}</h1>
+                <h1>Hello {loggedInUser.username}</h1>
                 {/* <div className="bg-white p-5 search-container">
                     <form className="form-group " onSubmit={handleSubmit}>
                         <h2 className="m-5">Settings</h2>
