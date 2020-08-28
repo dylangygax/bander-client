@@ -1,10 +1,10 @@
 import React, { useState, createContext } from 'react'
 
-const UserContext = createContext([{user: 'KORN'}, () => {}])
+const UserContext = createContext([{loggedInUser: 'KORN'}, () => {}])
 
 const UserContextProvider = (props) => {
     const [loggedInUser, setUser] = useState({
-        loggedInUser: "NIN"
+        loggedInUser: useState(localStorage.getItem('uid'))
     });
     return (
         <UserContext.Provider value={[loggedInUser, setUser]}>
@@ -12,5 +12,5 @@ const UserContextProvider = (props) => {
         </UserContext.Provider>
     )
 }
-
+//useState(localStorage.getItem('uid'))
 export {UserContext, UserContextProvider}

@@ -33,6 +33,13 @@ export default class UserModel {
         }).then(res => res.json())
     }
 
+    //to delete user from database
+    static delete(userID) {
+        return fetch(`${REACT_APP_API_URL}/users/${userID}`, {
+            method: "DELETE",
+        }).then(res => res.json())
+    }
+
     //AUTH METHODS
     //for registering a new user
     static create(data) {
@@ -64,6 +71,6 @@ export default class UserModel {
         return fetch(`${REACT_APP_API_URL}/auth/logout`, {
             method: "DELETE",
             credentials: 'include'
-        })
+        }).then(res => res.json())
     }
 }

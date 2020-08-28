@@ -47,11 +47,14 @@ const LoginForm = (props) => {
                 console.log(data)
                 //console.log(data.user)
                 setUser(data)
+                console.log(localStorage.getItem('uid'))
+                localStorage.setItem('uid', data)
+                console.log(localStorage.getItem('uid'))
                 //console.log(props.loggedInUser)
                 //props.history.push('/profile')
                 
                 //REDIRECT
-                props.history.push('/profile')
+                //props.history.push('/profile')
             })
             .catch(err => {
                 setErrorDisplayText('Invalid Login/Password')
