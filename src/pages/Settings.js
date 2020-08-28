@@ -64,7 +64,7 @@ const Settings = (props) => {
     // render() {
         return (
             <div>
-                <h1>Hello {loggedInUser}</h1>
+                <h1>Hello {loggedInUser.instrument}</h1>
                 {/* <div className="bg-white p-5 search-container">
                     <form className="form-group " onSubmit={handleSubmit}>
                         <h2 className="m-5">Settings</h2>

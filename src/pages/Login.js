@@ -11,7 +11,7 @@ const LoginForm = (props) => {
 
     const [inputEmail, setInputEmail] = useState('')
     const [inputPassword, setInputPassword] = useState('')
-    const [errorDisplayText, setErrorDisplayText] = useState('pizza')
+    const [errorDisplayText, setErrorDisplayText] = useState('error text displays here')
 
     const [loggedInUser, setUser] = useContext(UserContext)
 
@@ -37,7 +37,6 @@ const LoginForm = (props) => {
         setInputPassword('')
         UserModel.login(userToLog)
             .then(data => {
-                console.log(data)
                 if (!data._id) {
                     setErrorDisplayText('Invalid Login/Password')
                     return false
@@ -46,10 +45,14 @@ const LoginForm = (props) => {
                 //console.log(props.loggedInUser)
                 console.log(data)
                 //console.log(data.user)
-                setUser(data._id)
+                setUser(data)
                 console.log(localStorage.getItem('uid'))
-                localStorage.setItem('uid', data._id)
-                localStorage.setItem('username', data.username)
+                // localStorage.setItem('uid', data._id)
+                // localStorage.setItem('username', data.username)
+                for (let property in data) {
+                    console.log(`${property}: ${data[property]}`)
+                    localStorage.setItem(`${property}`, `${data[property]}`);
+                }
                 console.log(localStorage.getItem('uid'))
                 //console.log(props.loggedInUser)
                 //props.history.push('/profile')
@@ -66,7 +69,7 @@ const LoginForm = (props) => {
     // render () {
         return (
             <div>
-                <h1>Hello {loggedInUser}</h1>
+                <h1>Hello {loggedInUser.instrument}</h1>
                 <h3>{errorDisplayText}</h3>
                 <form onSubmit={handleSubmit}>
                     <h1>Login Login Login</h1>
