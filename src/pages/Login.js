@@ -29,9 +29,9 @@ const LoginForm = (props) => {
             email: inputEmail,
             password: inputPassword,
         }
-        console.log(userToLog)
+        //console.log(userToLog)
         // this will update context value
-        setUser(userToLog)
+        //setUser(userToLog)
           
         setInputEmail('')
         setInputPassword('')
@@ -46,9 +46,10 @@ const LoginForm = (props) => {
                 //console.log(props.loggedInUser)
                 console.log(data)
                 //console.log(data.user)
-                setUser(data)
+                setUser(data._id)
                 console.log(localStorage.getItem('uid'))
-                localStorage.setItem('uid', data)
+                localStorage.setItem('uid', data._id)
+                localStorage.setItem('username', data.username)
                 console.log(localStorage.getItem('uid'))
                 //console.log(props.loggedInUser)
                 //props.history.push('/profile')
@@ -65,7 +66,7 @@ const LoginForm = (props) => {
     // render () {
         return (
             <div>
-                <h1>Hello {loggedInUser._id}</h1>
+                <h1>Hello {loggedInUser}</h1>
                 <h3>{errorDisplayText}</h3>
                 <form onSubmit={handleSubmit}>
                     <h1>Login Login Login</h1>
