@@ -1,5 +1,23 @@
 import React, { Component } from 'react';
-import UserModel from '../models/user'
+import UserModel from '../models/user';
+import { Accordion, Button, Form, Segment } from 'semantic-ui-react'
+
+const panels = [
+    {
+        key: 'details',
+        title: 'Optional Details',
+        content: {
+            as: Form.Input,
+            label: 'Maiden Name',
+            placeholder: 'Maiden Name',
+        },
+        content: {
+            as: Form.Input,
+            label: "eat cheese",
+            placeholder: "yes pls"
+        }
+    }
+]
 
 class Settings extends Component {
     state = {
