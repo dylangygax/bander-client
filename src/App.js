@@ -7,7 +7,6 @@ import "./App.css";
 import "./app/main.css";
 import "./app/style.css";
 
-
 function App(props) {
     const [currentUser, setCurrentUser] = useState(localStorage.getItem('uid'))
 

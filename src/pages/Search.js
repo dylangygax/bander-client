@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Dropdown } from 'semantic-ui-react';
-import CustomAccordion from "../components/CustomAccordion"
-import Button from "../components/Button"
+import SettingsComponent from "../components/SettingsComponent";
+import Button from "../components/Button";
+import UserModel from '../models/user';
+// import $ from 'jquery';
 
 const avanteGarde = [
     { key: 'avantGarde', text: 'Avante Garde', value: 'avantGarde' },
@@ -83,32 +85,89 @@ const caribbean = [
 ]
 
 
-const Search = () => {
-    return (
-        <div>
-            <div className="bg-white p-5 search-container">
-                <h2 className="m-3 b">Search</h2>
-                <h4 className="m-4">Music Genres</h4>
-                <h5 className="text-left">Avante Garde</h5>
-                <Dropdown className="m-2"
-                    placeholder='Avante Garde' fluid multiple selection options={avanteGarde} />
-                <h5 className="text-left">Blues</h5>
-                <Dropdown className="m-2" placeholder='Blues' fluid multiple selection options={blues} />
-                <h5 className="text-left">Carribean</h5>
-                <Dropdown className="m-2" placeholder='Caribbean' fluid multiple selection options={caribbean} />
-                <h5 className="text-left">Carribean</h5>
-                <Dropdown className="m-2" placeholder='Caribbean' fluid multiple selection options={caribbean} />
-                <div className="justify-content-center flex-column col-12">
-                    <div className="ui divider" />
-                    <h4 className="m-4">Instruments</h4>
-                    <h5 className="text-left">Avante Garde</h5>
-                    <Dropdown className="m-2" placeholder='Avante Garde' fluid multiple selection options={avanteGarde} />
-                    <CustomAccordion />
-                    <Button buttonText="Submit" url={"http://localhost:3000/app/Home"} />
+
+class Search extends Component {
+    state = {
+        genre: '',
+        instrument: ''
+    }
+
+    handleChange = (event) => {
+        //let genreSelect = $('.dropdown').dropdown('get value');
+        // console.log("handleChange call", genreSelect);
+        //console.log("handleChange called", event.target);
+        if (event.target.localName === "span") {
+            let parentNode = event.target.parentNode
+            console.log(parentNode);
+        }
+        else {
+            console.log(event.target);
+        }
+        this.setState({
+            [event.target.value]: event.target.value
+        })
+
+        // console.log("handleChange called", event.target);
+        // this.setState({
+        //     genre: 'africanBlues'
+        // })
+    }
+
+    handleSubmit = (event) => {
+        console.log('in handle submist', this.state)
+        event.preventDefault()
+        UserModel.results(this.state)
+            .then(data => {
+                console.log(data)
+                this.setState({
+                    genre: '',
+                    instrument: ''
+                })
+            })
+        //NEED TO LOG THE USER IN SOMEHOW
+
+        //REDIRECT?
+        this.props.history.push('/app/settings')
+    }
+
+    render() {
+        return (
+            <div>
+                <div className="bg-white p-5 search-container">
+                    <form className="form-group " onSubmit={this.handleSubmit}>
+                        <h2 className="m-3 b">Search</h2>
+                        <h4 className="m-4">Music Genres</h4>
+                        <h5 className="text-left">Avante Garde</h5>
+                        <Dropdown id="genreSelect1" className="m-2"
+                            placeholder='Avante Garde' fluid multiple selection options={avanteGarde}
+                            onChange={this.handleChange}
+                            name="genre"
+                        />
+                        <h5 className="text-left">Blues</h5>
+                        <Dropdown className="m-2" placeholder='Blues' fluid multiple selection options={blues} />
+                        <h5 className="text-left">Carribean</h5>
+                        <Dropdown className="m-2" placeholder='Caribbean' fluid multiple selection options={caribbean} />
+                        <h5 className="text-left">Carribean</h5>
+                        <Dropdown className="m-2" placeholder='Caribbean' fluid multiple selection options={caribbean} />
+                        <div className="ui divider" />
+                        <div className="justify-content-center flex-column col-12">
+                            <h4 className="m-4">Instruments</h4>
+                            <h5 className="text-left">Avante Garde</h5>
+                            <Dropdown
+                                className="m-2"
+                                placeholder='Avante Garde' fluid multiple selection options={avanteGarde}
+                                onChange={this.handleChange}
+                                name="instrument"
+                            />
+                            {/* <SettingsComponent /> */}
+                            <Button buttonText="Submit" type="submit" />
+                            <button type="submit">Login</button>
+                        </div>
+                    </form>
                 </div>
             </div>
-        </div>
-    );
+        );
+    }
 }
 
 export default Search;
