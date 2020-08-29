@@ -107,8 +107,8 @@ class Search extends Component {
     }
 
     handleSubmit = (event) => {
-        console.log('in handle submist', this.state)
         event.preventDefault()
+        console.log('in handle submist', this.state)
         UserModel.results(this.state)
             .then(data => {
                 console.log(data)
@@ -117,7 +117,7 @@ class Search extends Component {
                     instrument: []
                 })
             })
-        this.props.history.push('/app/settings')
+        //this.props.history.push('/app/settings')
     }
 
     render() {
