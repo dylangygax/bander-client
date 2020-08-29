@@ -5,6 +5,7 @@ import Button from "../components/Button";
 import UserModel from '../models/user';
 
 const genreList = [
+    { key: 'Gospel', text: 'Gospel', value: 'Gospel' },
     { key: 'avantGarde', text: 'Avante Garde', value: 'avantGarde' },
     { key: 'experimental', text: 'Experimental', value: 'experimental' },
     { key: 'noise', text: 'Noise', value: 'noise' },
@@ -84,18 +85,25 @@ const instruments = [
 class Search extends Component {
     state = {
         genres: [],
-        instruments: []
+        instruments: [],
+        isBand: ""
     }
 
-    genresChange = (e, {value}) => {
+    genresChange = (e, { value }) => {
+        e.persist();
         console.log(e);
         console.log(value);
         console.log(e.currentTarget.getAttribute("data-name"));
         this.state.genres = value;
     }
 
-    instrumentsChange = (e, {value}) => {
+    instrumentsChange = (e, { value }) => {
+        e.persist();
         this.state.instruments = value;
+    }
+
+    isBandChange = (e) => {
+        this.state.isBand = e.target.value;
     }
 
     handleSubmit = (event) => {
@@ -140,6 +148,36 @@ class Search extends Component {
                                 onChange={this.instrumentsChange}
                                 name="instrument"
                             />
+
+                            <div>
+                                <h4>Band or Musician Check</h4>
+                                <div className="form-check">
+
+                                    <label className="form-check-label">
+                                        <input className="form-check-input"
+                                            type="radio"
+                                            name="exampleRadios"
+                                            id="exampleRadios1"
+                                            onClick={this.isBandChange}
+                                            value="band"
+                                        />
+                                        Band
+                                    </label>
+                                </div>
+                                <div className="form-check">
+                                    <label className="form-check-label">
+                                        <input className="form-check-input"
+                                            type="radio"
+                                            name="exampleRadios"
+                                            id="exampleRadios2"
+                                            onClick={this.isBandChange}
+                                            value="solo"
+                                        />
+                                        Solo
+                                    </label>
+                                </div>
+                            </div>
+
                             {/* <SettingsComponent /> */}
                             <Button buttonText="Submit" type="submit" />
                             <button type="submit">Login</button>

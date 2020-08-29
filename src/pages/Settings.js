@@ -1,48 +1,123 @@
 import React, { Component } from 'react';
+import { Dropdown } from 'semantic-ui-react';
+import SettingsComponent from "../components/SettingsComponent";
+import Button from "../components/Button";
 import UserModel from '../models/user';
-import { Accordion, Button, Form, Segment } from 'semantic-ui-react'
 
-const panels = [
-    {
-        key: 'details',
-        title: 'Optional Details',
-        content: {
-            as: Form.Input,
-            label: 'Maiden Name',
-            placeholder: 'Maiden Name',
-        },
-        content: {
-            as: Form.Input,
-            label: "eat cheese",
-            placeholder: "yes pls"
-        }
-    }
+const genreList = [
+    { key: 'Gospel', text: 'Gospel', value: 'Gospel' },
+    { key: 'avantGarde', text: 'Avante Garde', value: 'avantGarde' },
+    { key: 'experimental', text: 'Experimental', value: 'experimental' },
+    { key: 'noise', text: 'Noise', value: 'noise' },
+    { key: 'harshNoiseWall', text: 'Harsh Noise Wall', value: 'harshNoiseWall' },
+    { key: 'outsider', text: 'Outsider', value: 'outsider' },
+    { key: 'lofi', text: 'Lo-fi', value: 'lofi' },
+    { key: 'musiqueConcrete', text: 'Musique Concrete', value: 'musiqueConcrete' },
+    { key: 'electroacoustic', text: 'Electroacoustic', value: 'electroacoustic' },
+    { key: 'blues', text: 'Blues', value: 'blues' },
+    { key: 'africanBlues', text: 'African Blues', value: 'africanBlues' },
+    { key: 'bluesRock', text: 'Blues Rock', value: 'bluesRock' },
+    { key: 'chicagoBlues', text: 'Chicago Blues', value: 'chicagoBlues' },
+    { key: 'classicalFemaleBlues', text: 'Classical Female Blues', value: 'classicalFemaleBlues' },
+    { key: 'contemporaryRB', text: 'Contemporary R&B', value: 'contemporaryRB' },
+    { key: 'countryBlues', text: 'Country Blues', value: 'countryBlues' },
+    { key: 'deltaBlues', text: 'Delta Blues', value: 'deltaBlues' },
+    { key: 'detroitBlues', text: 'Detroit Blues', value: 'detroitBlues' },
+    { key: 'electricBlues', text: 'Electric Blues', value: 'electricBlues' },
+    { key: 'gospelBlues', text: 'Gospel Blues', value: 'gospelBlues' },
+    { key: 'HillCountryBlues', text: 'Hill Country Blues', value: 'HillCountryBlues' },
+    { key: 'jumpBlues', text: 'Jump Blues', value: 'jumpBlues' },
+    { key: 'kansasCityBlues', text: 'Kansas City Blues', value: 'kansasCityBlues' },
+    { key: 'louisianaBlues', text: 'Louisiana Blues', value: 'louisianaBlues' },
+    { key: 'memphisBlues', text: 'Memphis Blues', value: 'memphisBlues' },
+    { key: 'newOrleanBlues', text: 'New Orleans Blues', value: 'newOrleanBlues' },
+    { key: 'piedmontBlues', text: 'Piedmont Blues', value: 'piedmontBlues' },
+    { key: 'punkBlues', text: 'Punk Blues', value: 'punkBlues' },
+    { key: 'rhythmAndBlues', text: 'Rhythm and Blues', value: 'rhythmAndBlues' },
+    { key: 'soulBlues', text: 'Soul Blues', value: 'soulBlues' },
+    { key: 'stLewisBlues', text: 'St. Lewis Blues', value: 'stLewisBlues' },
+    { key: 'swampBlues', text: 'Swamp Blues', value: 'swampBlues' },
+    { key: 'texasBlues', text: 'Texas Blues', value: 'texasBlues' },
+    { key: 'westCoastBlues', text: 'West Coast Blues', value: 'westCoastBlues' },
+    { key: 'caribbean', text: 'Caribbean', value: 'caribbean' },
+    { key: 'danceHall', text: 'Dancehall', value: 'danceHall' },
+    { key: 'bouyan', text: 'Bouyan', value: 'bouyan' },
+    { key: 'cadenceLypso', text: 'Cadence-lypso', value: 'cadenceLypso' },
+    { key: 'calypso', text: 'Calypso', value: 'calypso' },
+    { key: 'chaChacha', text: 'Cha-cha-cha', value: 'chaChacha' },
+    { key: 'chutney', text: 'Chutney', value: 'chutney' },
+    { key: 'chutneySoca', text: 'Chutney Soca', value: 'chutneySoca' },
+    { key: 'chutneyParang', text: 'Chutney Parang', value: 'chutneyParang' },
+    { key: 'compas', text: 'Compas', value: 'caribbean' },
+    { key: 'mambo', text: 'Mambo', value: 'mambo' },
+    { key: 'merengue', text: 'Merengue', value: 'merengue' },
+    { key: 'mozambique', text: 'Mozambique', value: 'mozambique' },
+    { key: 'pichakaree', text: 'Pichakaree', value: 'pichakaree' },
+    { key: 'punta', text: 'Punta', value: 'punta' },
+    { key: 'puntaRock', text: 'Punta Rock', value: 'puntaRock' },
+    { key: 'rasin', text: 'Rasin', value: 'rasin' },
+    { key: 'reggae', text: 'Reggae', value: 'reggae' },
+    { key: 'reggaeDub', text: 'Reggae Dub', value: 'reggaeDub' },
+    { key: 'reggaeLoveRock', text: 'Reggae Love Rock', value: 'reggaeLoveRock' },
+    { key: 'reggaeRagga', text: 'Reggae Ragga', value: 'reggaeRagga' },
+    { key: 'reggaeRaggaJungle', text: 'Reggae Ragga Jungle', value: 'reggaeRaggaJungle' },
+    { key: 'reggaeFusion', text: 'Reggae Fusion', value: 'reggaeFusion' },
+    { key: 'reggaeReggaeton', text: 'Reggae Reggaeton', value: 'reggaeReggaeton' },
+    { key: 'rocksteasy', text: 'Rocksteady', value: 'rocksteasy' },
+    { key: 'rumba', text: 'Rumba', value: 'rumba' },
+    { key: 'ska', text: 'Ska', value: 'ska' },
+    { key: 'skaTwoTone', text: 'Ska Two-Tone', value: 'skaTwoTone' },
+    { key: 'skaPunk', text: 'Ska Punk', value: 'skaPunk' },
+    { key: 'salsa', text: 'Salsa', value: 'salsa' },
+    { key: 'sonCubano', text: 'Son Cubano', value: 'sonCubano' },
+    { key: 'songo', text: 'Songo', value: 'songo' },
+    { key: 'soca', text: 'Soca', value: 'soca' },
+    { key: 'powerSoca', text: 'Power Soca', value: 'powerSoca' },
+    { key: 'timba', text: 'Timba', value: 'timba' },
+    { key: 'twobadou', text: 'Twoubadou', value: 'twobadou' },
+    { key: 'zouk', text: 'Zouk', value: 'zouk' },
+]
+
+const instruments = [
+    { key: 'guitar', text: 'Guitar', value: 'guitar' },
 ]
 
 class Settings extends Component {
     state = {
-        bio: '',
+        genres: [],
+        instruments: [],
+        isBand: ""
     }
 
-    handleChange = (event) => {
-        this.setState({
-            [event.target.name]: event.target.value
-        })
+    genresChange = (e, { value }) => {
+        e.persist();
+        console.log(e);
+        console.log(value);
+        console.log(e.currentTarget.getAttribute("data-name"));
+        this.state.genres = value;
+    }
+
+    instrumentsChange = (e, { value }) => {
+        e.persist();
+        this.state.instruments = value;
+    }
+
+    isBandChange = (e) => {
+        this.state.isBand = e.target.value;
     }
 
     handleSubmit = (event) => {
-        console.log('in handle submist')
+        console.log('in handle submist', this.state)
         event.preventDefault()
-        const userID = '5f41b09dc120779230299a18' //TEMPORARY hardcoded until log in is totally working
-        UserModel.update(userID, this.state)
+        UserModel.results(this.state)
             .then(data => {
                 console.log(data)
                 this.setState({
-                    bio: '',
+                    genres: [],
+                    instrument: []
                 })
             })
-        //REDIRECT
-        //this.props.history.push('/app/settings')
+        this.props.history.push('/app/settings')
     }
 
     render() {
@@ -50,24 +125,62 @@ class Settings extends Component {
             <div>
                 <div className="bg-white p-5 search-container">
                     <form className="form-group " onSubmit={this.handleSubmit}>
-                        <h2 className="m-5">Settings</h2>
-                        <div className="row d-flex justify-content-center m-3 text-center">
-                            <div className="col-12">
-                                <label className="reg-text form-row"
-                                    htmlFor="InputEmail">B i 0</label>
-                            </div>
-                            <input
-                                className="form-text form-control col-5 text-xl-left m-3"
-                                aria-describedby="emailHelp"
-                                placeholder="Enter bio here"
-                                onChange={this.handleChange}
-                                type="text"
-                                id="email InputEmail"
-                                name="bio"
-                                value={this.state.bio}
+                        <h2 className="m-3 b">Search</h2>
+                        <h4 className="m-4">Music Genres</h4>
+
+                        <Dropdown
+                            placeholder='Genres...'
+                            fluid
+                            multiple
+                            search
+                            selection
+                            data-name="genres"
+                            onChange={this.genresChange}
+                            options={genreList}
+                        />
+
+                        <div className="ui divider" />
+                        <div className="justify-content-center flex-column col-12">
+                            <h4 className="m-4">Instruments</h4>
+                            <Dropdown
+                                className="m-2"
+                                placeholder='Instruments...' fluid multiple selection options={instruments}
+                                onChange={this.instrumentsChange}
+                                name="instrument"
                             />
-                            <br />
-                            <button className="btn btn-primary" type="submit">Update</button>
+
+                            <div>
+                                <h4>Band or Musician Check</h4>
+                                <div className="form-check">
+
+                                    <label className="form-check-label">
+                                        <input className="form-check-input"
+                                            type="radio"
+                                            name="exampleRadios"
+                                            id="exampleRadios1"
+                                            onClick={this.isBandChange}
+                                            value="band"
+                                        />
+                                        Band
+                                    </label>
+                                </div>
+                                <div className="form-check">
+                                    <label className="form-check-label">
+                                        <input className="form-check-input"
+                                            type="radio"
+                                            name="exampleRadios"
+                                            id="exampleRadios2"
+                                            onClick={this.isBandChange}
+                                            value="solo"
+                                        />
+                                        Solo
+                                    </label>
+                                </div>
+                            </div>
+
+                            {/* <SettingsComponent /> */}
+                            <Button buttonText="Submit" type="submit" />
+                            <button type="submit">Login</button>
                         </div>
                     </form>
                 </div>

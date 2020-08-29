@@ -3,7 +3,7 @@ import { Accordion } from 'semantic-ui-react';
 import Button from "./Button";
 
 const AboutMeContent = (
-    <div className="form-group">
+    <div className="form-group col-12 flex">
         <label>
             Name:
             <input id="nameSetting" type="text" className="form-control" />
@@ -85,7 +85,7 @@ const SettingsComponent = () => {
     return (
         <form>
             <Accordion defaultActiveIndex={0} panels={rootPanels} styled />
-            <Button buttonText="Submit" type="submit" url={"http://localhost:3000/app/Home"} />
+            <button>text</button>
         </form>
     );
 }
