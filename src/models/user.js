@@ -26,6 +26,8 @@ export default class UserModel {
 
     //to update user in database. for settings page/ logging likes, matches, etc. 
     static update(userID, updateObject) {
+        console.log(userID)
+        console.log(updateObject)
         return fetch(`${REACT_APP_API_URL}/users/${userID}`, {
             method: "PUT",
             headers: {

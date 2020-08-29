@@ -21,7 +21,7 @@ const Home = (props) => {
             {match
             ? <>
                 <MatchCard {...match}/>
-                <Footer />
+                <Footer matchId={match._id}/>
             </>
             : <h6>loading...</h6>
             }
