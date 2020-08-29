@@ -1,11 +1,9 @@
-import React, { Component, useContext, useState} from 'react';
+import React, { Component, useContext, useState } from 'react';
 import UserModel from '../models/user'
-import {UserContext, UserContextProvider} from '../UserContext'
+import { UserContext, UserContextProvider } from '../UserContext'
 
 const Settings = (props) => {
-    // state = {
-    //     bio: '',
-    // }
+
     const [loggedInUser, setUser] = useContext(UserContext)
     console.log(loggedInUser)
     const userId = useState(loggedInUser._id)
@@ -21,17 +19,12 @@ const Settings = (props) => {
     const handleSubmit = (event) => {
         event.preventDefault()
         console.log('in handle submist')
-        //const userID = '5f41b09dc120779230299a18' //TEMPORARY hardcoded until log in is totally working
         const userID = loggedInUser._id
         UserModel.update(userID, this.state)
             .then(data => {
                 console.log(data)
                 setUser(data)
-                // this.setState({
-                //     bio: '',
-                // })
             })
-        this.props.history.push('/app/settings')
     }
 
     const handleLogout = (event) => {
@@ -51,7 +44,6 @@ const Settings = (props) => {
     const handleDelete = (event) => {
         event.preventDefault()
         console.log('in handle delete')
-        //const userIdDelete = '5f41b09dc120779230299a19' //TEMPORARILY HARDCODED
         UserModel.delete(loggedInUser._id)
             .then(response => {
                 console.log(response)
@@ -60,47 +52,40 @@ const Settings = (props) => {
         props.history.push('/')
     }
 
-    // render() {
-        return (
-            <div>
-                <div className="bg-white p-5 search-container">
-                    <form className="form-group " onSubmit={this.handleSubmit}>
-                        <h2 className="m-3 b">Search</h2>
-                        <h4 className="m-4">Music Genres</h4>
-
-                        <Dropdown
-                            placeholder='Genres...'
-                            fluid
-                            multiple
-                            search
-                            selection
-                            data-name="genres"
-                            onChange={this.genresChange}
-                            options={genreList}
-                        />
-
-                        <div className="ui divider" />
-                        <div className="justify-content-center flex-column col-12">
-                            <h4 className="m-4">Instruments</h4>
-                            <Dropdown
-                                className="m-2"
-                                placeholder='Instruments...' fluid multiple selection options={instruments}
-                                onChange={this.instrumentsChange}
-                                name="instrument"                
-                            <Button buttonText="Submit" type="submit" />
-                            <button type="submit">Login</button>
+    return (
+        <div>
+            <h1>Hello {loggedInUser.username}</h1>
+            {/* <div className="bg-white p-5 search-container">
+                    <form className="form-group " onSubmit={handleSubmit}>
+                        <h2 className="m-5">Settings</h2>
+                        <div className="row d-flex justify-content-center m-3 text-center">
+                            <div className="col-12">
+                                <label className="reg-text form-row"
+                                    htmlFor="InputEmail">B i 0</label>
+                            </div>
+                            <input
+                                className="form-text form-control col-5 text-xl-left m-3"
+                                aria-describedby="emailHelp"
+                                placeholder="Enter bio here"
+                                onChange={handleChange}
+                                type="text"
+                                id="email InputEmail"
+                                name="bio"
+                                value={info.bio}
+                            />
+                            <br />
+                            <button className="btn btn-primary" type="submit">Update</button>
                         </div>
                     </form>
                 </div> */}
-                <div>
-                    <button onClick={handleLogout}>logout</button>
-                </div>
-                <div>
-                    <button onClick={handleDelete}>delete</button>
-                </div>
+            <div>
+                <button onClick={handleLogout}>logout</button>
             </div>
-        );
-    //}
+            <div>
+                <button onClick={handleDelete}>delete</button>
+            </div>
+        </div>
+    );
 }
 
 export default Settings;
