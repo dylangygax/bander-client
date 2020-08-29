@@ -16,7 +16,7 @@ export default class UserModel {
     //for the search results page. takes the object of filter parameters
     static results(filterObject) {
         return fetch(`${REACT_APP_API_URL}/users/results`, {
-            method: "GET",
+            method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },

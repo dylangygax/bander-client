@@ -31,8 +31,7 @@ const Settings = (props) => {
                 //     bio: '',
                 // })
             })
-        //REDIRECT
-        //this.props.history.push('/app/settings')
+        this.props.history.push('/app/settings')
     }
 
     const handleLogout = (event) => {
@@ -64,27 +63,32 @@ const Settings = (props) => {
     // render() {
         return (
             <div>
-                <h1>Hello {loggedInUser.username}</h1>
-                {/* <div className="bg-white p-5 search-container">
-                    <form className="form-group " onSubmit={handleSubmit}>
-                        <h2 className="m-5">Settings</h2>
-                        <div className="row d-flex justify-content-center m-3 text-center">
-                            <div className="col-12">
-                                <label className="reg-text form-row"
-                                    htmlFor="InputEmail">B i 0</label>
-                            </div>
-                            <input
-                                className="form-text form-control col-5 text-xl-left m-3"
-                                aria-describedby="emailHelp"
-                                placeholder="Enter bio here"
-                                onChange={handleChange}
-                                type="text"
-                                id="email InputEmail"
-                                name="bio"
-                                value={info.bio}
-                            />
-                            <br />
-                            <button className="btn btn-primary" type="submit">Update</button>
+                <div className="bg-white p-5 search-container">
+                    <form className="form-group " onSubmit={this.handleSubmit}>
+                        <h2 className="m-3 b">Search</h2>
+                        <h4 className="m-4">Music Genres</h4>
+
+                        <Dropdown
+                            placeholder='Genres...'
+                            fluid
+                            multiple
+                            search
+                            selection
+                            data-name="genres"
+                            onChange={this.genresChange}
+                            options={genreList}
+                        />
+
+                        <div className="ui divider" />
+                        <div className="justify-content-center flex-column col-12">
+                            <h4 className="m-4">Instruments</h4>
+                            <Dropdown
+                                className="m-2"
+                                placeholder='Instruments...' fluid multiple selection options={instruments}
+                                onChange={this.instrumentsChange}
+                                name="instrument"                
+                            <Button buttonText="Submit" type="submit" />
+                            <button type="submit">Login</button>
                         </div>
                     </form>
                 </div> */}

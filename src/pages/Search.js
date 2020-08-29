@@ -1,8 +1,11 @@
-import React from 'react';
-import { Dropdown, Divider } from 'semantic-ui-react';
-import Button from "../components/Button"
+import React, { Component } from 'react';
+import { Dropdown } from 'semantic-ui-react';
+import SettingsComponent from "../components/SettingsComponent";
+import Button from "../components/Button";
+import UserModel from '../models/user';
 
-const avanteGarde = [
+const genreList = [
+    { key: 'Gospel', text: 'Gospel', value: 'Gospel' },
     { key: 'avantGarde', text: 'Avante Garde', value: 'avantGarde' },
     { key: 'experimental', text: 'Experimental', value: 'experimental' },
     { key: 'noise', text: 'Noise', value: 'noise' },
@@ -11,9 +14,6 @@ const avanteGarde = [
     { key: 'lofi', text: 'Lo-fi', value: 'lofi' },
     { key: 'musiqueConcrete', text: 'Musique Concrete', value: 'musiqueConcrete' },
     { key: 'electroacoustic', text: 'Electroacoustic', value: 'electroacoustic' },
-]
-
-const blues = [
     { key: 'blues', text: 'Blues', value: 'blues' },
     { key: 'africanBlues', text: 'African Blues', value: 'africanBlues' },
     { key: 'bluesRock', text: 'Blues Rock', value: 'bluesRock' },
@@ -39,9 +39,6 @@ const blues = [
     { key: 'swampBlues', text: 'Swamp Blues', value: 'swampBlues' },
     { key: 'texasBlues', text: 'Texas Blues', value: 'texasBlues' },
     { key: 'westCoastBlues', text: 'West Coast Blues', value: 'westCoastBlues' },
-]
-
-const caribbean = [
     { key: 'caribbean', text: 'Caribbean', value: 'caribbean' },
     { key: 'danceHall', text: 'Dancehall', value: 'danceHall' },
     { key: 'bouyan', text: 'Bouyan', value: 'bouyan' },
@@ -81,29 +78,115 @@ const caribbean = [
     { key: 'zouk', text: 'Zouk', value: 'zouk' },
 ]
 
-const Search = () => (
-    <div>
-        <div className="bg-white p-5 search-container">
-            <h2 className="m-3 b">Search</h2>
-            <h4 className="m-4">Music Genres</h4>
-            <h5 className="text-left">Avante Garde</h5>
-            <Dropdown className="m-2" placeholder='Avante Garde' fluid multiple selection options={avanteGarde} />
-            <h5 className="text-left">Blues</h5>
-            <Dropdown className="m-2" placeholder='Blues' fluid multiple selection options={blues} />
-            <h5 className="text-left">Carribean</h5>
-            <Dropdown className="m-2" placeholder='Caribbean' fluid multiple selection options={caribbean} />
-            <h5 className="text-left">Carribean</h5>
-            <Dropdown className="m-2" placeholder='Caribbean' fluid multiple selection options={caribbean} />
-            <div className="justify-content-center flex-column col-12">
-                <div class="ui divider" />
-                <h4 className="m-4">Instruments</h4>
-                <h5 className="text-left">Avante Garde</h5>
-                <Dropdown className="m-2" placeholder='Avante Garde' fluid multiple selection options={avanteGarde} />
-                <Button buttonText="Submit" url={"http://localhost:3000/app/Home"} />
-            </div>
-        </div>
-    </div>
+const instruments = [
+    { key: 'guitar', text: 'Guitar', value: 'guitar' },
+]
 
-)
+class Search extends Component {
+    state = {
+        genres: [],
+        instruments: [],
+        isBand: ""
+    }
+
+    genresChange = (e, { value }) => {
+        e.persist();
+        console.log(e);
+        console.log(value);
+        console.log(e.currentTarget.getAttribute("data-name"));
+        this.state.genres = value;
+    }
+
+    instrumentsChange = (e, { value }) => {
+        e.persist();
+        this.state.instruments = value;
+    }
+
+    isBandChange = (e) => {
+        this.state.isBand = e.target.value;
+    }
+
+    handleSubmit = (event) => {
+        console.log('in handle submist', this.state)
+        event.preventDefault()
+        UserModel.results(this.state)
+            .then(data => {
+                console.log(data)
+                this.setState({
+                    genres: [],
+                    instrument: []
+                })
+            })
+        this.props.history.push('/app/settings')
+    }
+
+    render() {
+        return (
+            <div>
+                <div className="bg-white p-5 search-container">
+                    <form className="form-group " onSubmit={this.handleSubmit}>
+                        <h2 className="m-3 b">Search</h2>
+                        <h4 className="m-4">Music Genres</h4>
+
+                        <Dropdown
+                            placeholder='Genres...'
+                            fluid
+                            multiple
+                            search
+                            selection
+                            data-name="genres"
+                            onChange={this.genresChange}
+                            options={genreList}
+                        />
+
+                        <div className="ui divider" />
+                        <div className="justify-content-center flex-column col-12">
+                            <h4 className="m-4">Instruments</h4>
+                            <Dropdown
+                                className="m-2"
+                                placeholder='Instruments...' fluid multiple selection options={instruments}
+                                onChange={this.instrumentsChange}
+                                name="instrument"
+                            />
+
+                            <div>
+                                <h4>Band or Musician Check</h4>
+                                <div className="form-check">
+
+                                    <label className="form-check-label">
+                                        <input className="form-check-input"
+                                            type="radio"
+                                            name="exampleRadios"
+                                            id="exampleRadios1"
+                                            onClick={this.isBandChange}
+                                            value="band"
+                                        />
+                                        Band
+                                    </label>
+                                </div>
+                                <div className="form-check">
+                                    <label className="form-check-label">
+                                        <input className="form-check-input"
+                                            type="radio"
+                                            name="exampleRadios"
+                                            id="exampleRadios2"
+                                            onClick={this.isBandChange}
+                                            value="solo"
+                                        />
+                                        Solo
+                                    </label>
+                                </div>
+                            </div>
+
+                            {/* <SettingsComponent /> */}
+                            <Button buttonText="Submit" type="submit" />
+                            <button type="submit">Login</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        );
+    }
+}
 
 export default Search;
