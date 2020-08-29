@@ -16,6 +16,10 @@ const Footer = (props) => {
             .then((data) => {
                 console.log(data)
             })
+        UserModel.update(`${props.matchId}`, {usersWhoLikeYou: `${loggedInUser._id}`})
+            .then((data) => {
+                console.log(data)
+            })
     } 
     
     return (
