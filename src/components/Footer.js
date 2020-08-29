@@ -20,12 +20,24 @@ const Footer = (props) => {
             .then((data) => {
                 console.log(data)
             })
-    } 
+    }
+    
+    const handleDislike = () => {
+        //update takes (usedId, updateObject)
+        UserModel.update(`${loggedInUser._id}`, {usersDisliked: `${props.matchId}`})
+            .then((data) => {
+                console.log(data)
+            })
+        UserModel.update(`${props.matchId}`, {usersWhoDislikeYou: `${loggedInUser._id}`})
+            .then((data) => {
+                console.log(data)
+            })
+    }
     
     return (
         <nav className="footer  fixed-bottom p-2">
             <div className="links d-flex justify-content-around p-1">
-                <Link className="footer-font " to={"/app/Home"}>
+                <Link className="footer-font " to={"/app/Home"} onClick={handleDislike}>
                     <FontAwesomeIcon icon={faTimes} />
                 </Link>
                 <Link className="footer-font " to={"/app/GeneralMessages"}>
