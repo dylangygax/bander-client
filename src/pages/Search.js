@@ -3,9 +3,8 @@ import { Dropdown } from 'semantic-ui-react';
 import SettingsComponent from "../components/SettingsComponent";
 import Button from "../components/Button";
 import UserModel from '../models/user';
-// import $ from 'jquery';
 
-const avanteGarde = [
+const genreList = [
     { key: 'avantGarde', text: 'Avante Garde', value: 'avantGarde' },
     { key: 'experimental', text: 'Experimental', value: 'experimental' },
     { key: 'noise', text: 'Noise', value: 'noise' },
@@ -14,9 +13,6 @@ const avanteGarde = [
     { key: 'lofi', text: 'Lo-fi', value: 'lofi' },
     { key: 'musiqueConcrete', text: 'Musique Concrete', value: 'musiqueConcrete' },
     { key: 'electroacoustic', text: 'Electroacoustic', value: 'electroacoustic' },
-]
-
-const blues = [
     { key: 'blues', text: 'Blues', value: 'blues' },
     { key: 'africanBlues', text: 'African Blues', value: 'africanBlues' },
     { key: 'bluesRock', text: 'Blues Rock', value: 'bluesRock' },
@@ -42,9 +38,6 @@ const blues = [
     { key: 'swampBlues', text: 'Swamp Blues', value: 'swampBlues' },
     { key: 'texasBlues', text: 'Texas Blues', value: 'texasBlues' },
     { key: 'westCoastBlues', text: 'West Coast Blues', value: 'westCoastBlues' },
-]
-
-const caribbean = [
     { key: 'caribbean', text: 'Caribbean', value: 'caribbean' },
     { key: 'danceHall', text: 'Dancehall', value: 'danceHall' },
     { key: 'bouyan', text: 'Bouyan', value: 'bouyan' },
@@ -84,33 +77,25 @@ const caribbean = [
     { key: 'zouk', text: 'Zouk', value: 'zouk' },
 ]
 
-
+const instruments = [
+    { key: 'guitar', text: 'Guitar', value: 'guitar' },
+]
 
 class Search extends Component {
     state = {
-        genre: '',
-        instrument: ''
+        genres: [],
+        instruments: []
     }
 
-    handleChange = (event) => {
-        //let genreSelect = $('.dropdown').dropdown('get value');
-        // console.log("handleChange call", genreSelect);
-        //console.log("handleChange called", event.target);
-        if (event.target.localName === "span") {
-            let parentNode = event.target.parentNode
-            console.log(parentNode);
-        }
-        else {
-            console.log(event.target);
-        }
-        this.setState({
-            [event.target.value]: event.target.value
-        })
+    genresChange = (e, {value}) => {
+        console.log(e);
+        console.log(value);
+        console.log(e.currentTarget.getAttribute("data-name"));
+        this.state.genres = value;
+    }
 
-        // console.log("handleChange called", event.target);
-        // this.setState({
-        //     genre: 'africanBlues'
-        // })
+    instrumentsChange = (e, {value}) => {
+        this.state.instruments = value;
     }
 
     handleSubmit = (event) => {
@@ -120,13 +105,10 @@ class Search extends Component {
             .then(data => {
                 console.log(data)
                 this.setState({
-                    genre: '',
-                    instrument: ''
+                    genres: [],
+                    instrument: []
                 })
             })
-        //NEED TO LOG THE USER IN SOMEHOW
-
-        //REDIRECT?
         this.props.history.push('/app/settings')
     }
 
@@ -137,26 +119,25 @@ class Search extends Component {
                     <form className="form-group " onSubmit={this.handleSubmit}>
                         <h2 className="m-3 b">Search</h2>
                         <h4 className="m-4">Music Genres</h4>
-                        <h5 className="text-left">Avante Garde</h5>
-                        <Dropdown id="genreSelect1" className="m-2"
-                            placeholder='Avante Garde' fluid multiple selection options={avanteGarde}
-                            onChange={this.handleChange}
-                            name="genre"
+
+                        <Dropdown
+                            placeholder='Genres...'
+                            fluid
+                            multiple
+                            search
+                            selection
+                            data-name="genres"
+                            onChange={this.genresChange}
+                            options={genreList}
                         />
-                        <h5 className="text-left">Blues</h5>
-                        <Dropdown className="m-2" placeholder='Blues' fluid multiple selection options={blues} />
-                        <h5 className="text-left">Carribean</h5>
-                        <Dropdown className="m-2" placeholder='Caribbean' fluid multiple selection options={caribbean} />
-                        <h5 className="text-left">Carribean</h5>
-                        <Dropdown className="m-2" placeholder='Caribbean' fluid multiple selection options={caribbean} />
+
                         <div className="ui divider" />
                         <div className="justify-content-center flex-column col-12">
                             <h4 className="m-4">Instruments</h4>
-                            <h5 className="text-left">Avante Garde</h5>
                             <Dropdown
                                 className="m-2"
-                                placeholder='Avante Garde' fluid multiple selection options={avanteGarde}
-                                onChange={this.handleChange}
+                                placeholder='Instruments...' fluid multiple selection options={instruments}
+                                onChange={this.instrumentsChange}
                                 name="instrument"
                             />
                             {/* <SettingsComponent /> */}
