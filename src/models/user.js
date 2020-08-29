@@ -3,6 +3,8 @@ const REACT_APP_API_URL = /*deployed url || */"http://localhost:4000/api/v1"
 export default class UserModel {
     //for showing data from one user
     static show(userID) {
+        console.log('in show')
+        console.log(userID)
         return fetch(`${REACT_APP_API_URL}/users/${userID}`).then(res => res.json())
     }
 
@@ -24,12 +26,21 @@ export default class UserModel {
 
     //to update user in database. for settings page/ logging likes, matches, etc. 
     static update(userID, updateObject) {
+        console.log(userID)
+        console.log(updateObject)
         return fetch(`${REACT_APP_API_URL}/users/${userID}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(updateObject)
+        }).then(res => res.json())
+    }
+
+    //to delete user from database
+    static delete(userID) {
+        return fetch(`${REACT_APP_API_URL}/users/${userID}`, {
+            method: "DELETE",
         }).then(res => res.json())
     }
 
@@ -59,9 +70,11 @@ export default class UserModel {
         }).then(res => res.json())
     }
 
-    //http://localhost:4000/api/v1/auth/login
-    //http://localhost:4000/api/v1/auth/login
-
     //logout
-    //coming soon
+    static logout() {
+        return fetch(`${REACT_APP_API_URL}/auth/logout`, {
+            method: "DELETE",
+            credentials: 'include'
+        }).then(res => res.json())
+    }
 }

@@ -3,7 +3,7 @@ import React, {Component, useContext, useState} from 'react'
 import UserModel from '../models/user'
 import {UserContext} from '../UserContext'
 
-const LoginForm = () => {    
+const LoginForm = (props) => {    
     // state = {
     //     email: '',
     //     password: '',
@@ -11,6 +11,7 @@ const LoginForm = () => {
 
     const [inputEmail, setInputEmail] = useState('')
     const [inputPassword, setInputPassword] = useState('')
+    const [errorDisplayText, setErrorDisplayText] = useState('error text displays here')
 
     const [loggedInUser, setUser] = useContext(UserContext)
 
@@ -28,16 +29,16 @@ const LoginForm = () => {
             email: inputEmail,
             password: inputPassword,
         }
-        console.log(userToLog)
+        //console.log(userToLog)
         // this will update context value
-        setUser(userToLog)
+        //setUser(userToLog)
           
         setInputEmail('')
         setInputPassword('')
         UserModel.login(userToLog)
             .then(data => {
-                console.log(data)
-                if (!data.user) {
+                if (!data._id) {
+                    setErrorDisplayText('Invalid Login/Password')
                     return false
                 }
                 //props.storeUser(data.user) ///LINE IS ERRING. MORE TO SET UP
@@ -45,17 +46,31 @@ const LoginForm = () => {
                 console.log(data)
                 //console.log(data.user)
                 setUser(data)
+                console.log(localStorage.getItem('uid'))
+                // localStorage.setItem('uid', data._id)
+                // localStorage.setItem('username', data.username)
+                for (let property in data) {
+                    //console.log(`${property}: ${data[property]}`)
+                    localStorage.setItem(`${property}`, `${data[property]}`);
+                }
+                console.log(localStorage.getItem('uid'))
                 //console.log(props.loggedInUser)
                 //props.history.push('/profile')
+                
+                //REDIRECT
+                //props.history.push('/profile')
             })
-            .catch(err => console.log(err))
-        //props.history.push('/profile')
+            .catch(err => {
+                setErrorDisplayText('Invalid Login/Password')
+                console.log(err)
+            })
     }
     
     // render () {
         return (
             <div>
-                <h1>Hello {loggedInUser.user}</h1>
+                <h1>Hello {loggedInUser.instrument}</h1>
+                <h3>{errorDisplayText}</h3>
                 <form onSubmit={handleSubmit}>
                     <h1>Login Login Login</h1>
                     <p>email</p>

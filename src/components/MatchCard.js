@@ -14,7 +14,6 @@ class MatchCard extends Component {
                         <a href="http://neopets.com" className="card-link">spotify link</a>
                     </div>
                 </div>
-                <Footer />
             </div>
         );
     }
