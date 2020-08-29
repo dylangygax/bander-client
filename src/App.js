@@ -9,7 +9,8 @@ import "./app/style.css";
 
 
 function App(props) {
-    const [currentUser, setCurrentUser] = useState(localStorage.getItem('uid'))
+    const [loggedInUser, setCurrentUser] = useState(localStorage.getItem('uid'))
+    //console.log(loggedInUser._id)
 
     const storeUser = (userId) => {
         setCurrentUser({ currentUser: userId })
