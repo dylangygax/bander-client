@@ -107,8 +107,8 @@ class Search extends Component {
     }
 
     handleSubmit = (event) => {
-        console.log('in handle submist', this.state)
         event.preventDefault()
+        console.log('in handle submist', this.state)
         UserModel.results(this.state)
             .then(data => {
                 console.log(data)
@@ -117,7 +117,6 @@ class Search extends Component {
                     instrument: []
                 })
             })
-        this.props.history.push('/app/settings')
     }
 
     render() {
@@ -152,7 +151,6 @@ class Search extends Component {
                             <div>
                                 <h4>Band or Musician Check</h4>
                                 <div className="form-check">
-
                                     <label className="form-check-label">
                                         <input className="form-check-input"
                                             type="radio"
@@ -177,9 +175,6 @@ class Search extends Component {
                                     </label>
                                 </div>
                             </div>
-
-                            {/* <SettingsComponent /> */}
-                            <Button buttonText="Submit" type="submit" />
                             <button type="submit">Login</button>
                         </div>
                     </form>

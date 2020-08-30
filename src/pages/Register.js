@@ -99,7 +99,7 @@ class Register extends Component {
                         <div className="justify-content-center flex-column col-12">
                             <Button buttonText="Register" type="submit" url={"http://localhost:3000/app/Home"} />
                         </div>
-                        {/* <button className="btn btn-primary" type="submit">Register</button> */}
+                        <button className="btn btn-primary" type="submit" onClick={this.handleSubmit}>Register</button>
                     </div>
                 </form>
             </div>

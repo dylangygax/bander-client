@@ -1,6 +1,5 @@
 import React from 'react';
 import { Accordion } from 'semantic-ui-react';
-import Button from "./Button";
 
 const AboutMeContent = (
     <div className="form-group col-12 flex">
