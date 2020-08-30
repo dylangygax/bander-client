@@ -19,6 +19,18 @@ const Footer = (props) => {
         UserModel.update(`${props.matchId}`, {usersWhoLikeYou: `${loggedInUser._id}`})
             .then((data) => {
                 console.log(data)
+                //Looking for a match
+                if (data.user.usersLiked.includes(loggedInUser._id)){
+                    console.log("that's a match!!!!!!!!")
+                    UserModel.update(`${loggedInUser._id}`, {matches: `${props.matchId}`})
+                        .then((data) => {
+                        console.log(data)
+                    })
+                    UserModel.update(`${props.matchId}`, {matches: `${loggedInUser._id}`})
+                        .then((data) => {
+                        console.log(data)
+                    })
+                }
             })
     }
     
