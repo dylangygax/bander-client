@@ -152,13 +152,13 @@ const Search = (props) => {
         setIsBand(e.target.value)
     }
 
+    //handleSubmit = (event) => {
+        //event.preventDefault()
+        //console.log('in handle submist', this.state)
+        //UserModel.results(this.state)
+    
     const handleSubmit = (event) => {
         event.preventDefault()
-        console.log('in handle submist', genres, instruments, isBand)
-        const loggedInUser = {_id: '5f4afbcbd976b21a3f29b8d6', "location": {
-            "lattitude": 60,
-            "longitude": 10
-        }}
         UserModel.results({genres, instruments, isBand})
             .then(data => {
                 console.log(data.users)
@@ -175,7 +175,9 @@ const Search = (props) => {
                 //     instrument: []
                 // })
             })
-        props.history.push('/app/home')
+      
+        props.history.push('/app/home');
+
     }
 
     // render() {
@@ -210,7 +212,6 @@ const Search = (props) => {
                             <div>
                                 <h4>Band or Musician Check</h4>
                                 <div className="form-check">
-
                                     <label className="form-check-label">
                                         <input className="form-check-input"
                                             type="radio"
@@ -235,9 +236,6 @@ const Search = (props) => {
                                     </label>
                                 </div>
                             </div>
-
-                            {/* <SettingsComponent /> */}
-                            <Button buttonText="Submit" type="submit" />
                             <button type="submit">Login</button>
                         </div>
                     </form>
