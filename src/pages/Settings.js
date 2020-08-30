@@ -1,7 +1,7 @@
 import React, { Component, useContext, useState } from 'react';
 import UserModel from '../models/user';
 import { UserContext, UserContextProvider } from '../UserContext';
-import { Accordion } from 'semantic-ui-react';
+import { Accordion, Dropdown } from 'semantic-ui-react';
 
 const genreList = [
     { key: 'Gospel', text: 'Gospel', value: 'Gospel' },
@@ -9,6 +9,10 @@ const genreList = [
     { key: 'experimental', text: 'Experimental', value: 'experimental' },
     { key: 'noise', text: 'Noise', value: 'noise' },
     { key: 'harshNoiseWall', text: 'Harsh Noise Wall', value: 'harshNoiseWall' }
+]
+
+const instruments = [
+    { key: 'guitar', text: 'Guitar', value: 'guitar' },
 ]
 
 const Settings = (props) => {
@@ -36,6 +40,24 @@ const Settings = (props) => {
     const handleContact = (event) => {
         let obj = JSON.parse(JSON.stringify(info));
         obj["contact"] = event.target.value;
+        setInfo(obj);
+    }
+
+    const handleGenres = (event) => {
+        let obj = JSON.parse(JSON.stringify(info));
+        obj["genres"] = event.target.value;
+        setInfo(obj);
+    }
+
+    const handleInstruments = (event) => {
+        let obj = JSON.parse(JSON.stringify(info));
+        obj["instruments"] = event.target.value;
+        setInfo(obj);
+    }
+
+    const handleBandNSolo = (event) => {
+        let obj = JSON.parse(JSON.stringify(info));
+        obj["bandandsolo"] = event.target.value;
         setInfo(obj);
     }
 
@@ -132,23 +154,63 @@ const Settings = (props) => {
     const MyMusicContent = (
         <div className="form-group">
             <label>
-                Name:
-                <input id="nameSetting" type="text" className="form-control" />
-            </label>
+                <div>
+                    <div className="bg-white p-5 search-container">
+                        <h2 className="m-3 b">Search</h2>
+                        <h4 className="m-4">Music Genres</h4>
 
-            <label>
-                Bio:
-                <textarea className="form-control" id="bioSetting" rows="3"></textarea>
-            </label>
+                        <Dropdown
+                            placeholder='Genres...'
+                            fluid
+                            multiple
+                            search
+                            selection
+                            data-name="genres"
+                            onChange={handleGenres}
+                            options={genreList}
+                        />
 
-            <label>
-                Contact:
-                <textarea className="form-control" id="contactSetting" rows="3"></textarea>
-            </label>
+                        <div className="ui divider" />
+                        <div className="justify-content-center flex-column col-12">
+                            <h4 className="m-4">Instruments</h4>
+                            <Dropdown
+                                className="m-2"
+                                placeholder='Instruments...' fluid multiple selection options={instruments}
+                                onChange={handleInstruments}
+                                name="instrument"
+                            />
 
-            <label>
-                Location Range:
-                <input id="rangeSetting" type="number" className="form-control" />
+                            <div>
+                                <h4>Band or Musician Check</h4>
+                                <div className="form-check">
+                                    <label className="form-check-label">
+                                        <input className="form-check-input"
+                                            type="radio"
+                                            name="exampleRadios"
+                                            id="exampleRadios1"
+                                            onClick={handleBandNSolo}
+                                            value="band"
+                                        />
+                                        Band
+                                    </label>
+                                </div>
+                                <div className="form-check">
+                                    <label className="form-check-label">
+                                        <input className="form-check-input"
+                                            type="radio"
+                                            name="exampleRadios"
+                                            id="exampleRadios2"
+                                            onClick={handleBandNSolo}
+                                            value="solo"
+                                        />
+                                        Solo
+                                    </label>
+                                </div>
+                            </div>
+                            <button type="submit">Login</button>
+                        </div>
+                    </div>
+                </div>
             </label>
 
         </div>
