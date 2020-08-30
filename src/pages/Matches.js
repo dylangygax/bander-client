@@ -18,12 +18,13 @@ const Matches = () => {
                 setLoggedInUserObject(data.user)
                 console.log(loggedInUserObject)
                 data.user.matches.forEach((match, i) => {
+                    setMatchIncrementer(matchIncrementer + 1)
                     UserModel.show(match)
                         .then(data => {
                             console.log(data.user)
                             const matchObject = data.user
                             //matchesArray.push(<MatchCard {...matchObject}/>)
-                            setMatchesArray(matchesArray => [...matchesArray, <MatchCard {...matchObject} />])
+                            setMatchesArray(matchesArray => [...matchesArray, <MatchCard {...matchObject} key={matchIncrementer} />])
                         })
                 });
             })
