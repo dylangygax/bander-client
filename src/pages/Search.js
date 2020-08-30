@@ -1,8 +1,10 @@
-import React, { Component } from 'react';
+import React, { Component, useState, useContext, useEffect} from 'react';
 import { Dropdown } from 'semantic-ui-react';
 import SettingsComponent from "../components/SettingsComponent";
 import Button from "../components/Button";
 import UserModel from '../models/user';
+import { UserContext, UserContextProvider } from '../UserContext'
+import {QueueContext, QueueContextProvider} from "../QueueContext"
 
 const genreList = [
     { key: 'Gospel', text: 'Gospel', value: 'Gospel' },
@@ -78,52 +80,111 @@ const genreList = [
     { key: 'zouk', text: 'Zouk', value: 'zouk' },
 ]
 
-const instruments = [
+const instrumentsList = [
     { key: 'guitar', text: 'Guitar', value: 'guitar' },
 ]
 
-class Search extends Component {
-    state = {
-        genres: [],
-        instruments: [],
-        isBand: ""
+const RADIUS = 3958.8 //radius of the earth in miles
+
+const Search = (props) => {
+    const [genres, setGenres] = useState([])
+    const [instruments, setInstruments] = useState([])
+    const [isBand, setIsBand] = useState("")
+
+    const [loggedInUser, setUser] = useContext(UserContext)
+    const [loggedInUserObject, setLoggedInUserObject] = useState({})
+
+    const [queue, setQueue] = useContext(QueueContext)
+
+    useEffect(() => {
+        UserModel.show(loggedInUser._id)
+            .then(data => {
+                console.log(loggedInUser._id)
+                console.log(data.user)
+                setLoggedInUserObject(data.user)
+                console.log(loggedInUserObject)
+            })
+    }, [loggedInUser._id])
+
+    //converts degrees to radians. neccesary for distance calculation
+    const toRad = (number) => {
+        return number * Math.PI / 180
     }
 
-    genresChange = (e, { value }) => {
+    //takes location objects with keys "lattitude" and "longitude"
+    const findDistance = (locationOne, locationTwo) => {
+        const difLat = locationOne.lattitude - locationTwo.lattitude
+        const difLong = locationOne.longitude - locationTwo.longitude
+    
+        console.log(difLat, difLong)
+    
+        const difLatRad = toRad(difLat)
+        const difLongRad = toRad(difLong)
+    
+        console.log(difLatRad, difLongRad)
+    
+        //Haversine Formula
+        //refactored from http://www.codecodex.com/wiki/Calculate_Distance_Between_Two_Points_on_a_Globe#JavaScript
+        const a = 
+            Math.sin(difLatRad/2) * Math.sin(difLatRad/2) +
+            Math.cos(toRad(locationOne.lattitude)) * Math.cos(toRad(locationTwo.lattitude)) * 
+            Math.sin(difLongRad/2) * Math.sin(difLongRad/2)
+            ; 
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+        const distance = RADIUS * c
+        return distance
+    }
+    
+    const genresChange = (e, { value }) => {
         e.persist();
         console.log(e);
         console.log(value);
         console.log(e.currentTarget.getAttribute("data-name"));
-        this.state.genres = value;
+        setGenres(value)
     }
 
-    instrumentsChange = (e, { value }) => {
+    const instrumentsChange = (e, { value }) => {
         e.persist();
-        this.state.instruments = value;
+        setInstruments(value)
     }
 
-    isBandChange = (e) => {
-        this.state.isBand = e.target.value;
+    const isBandChange = (e) => {
+        setIsBand(e.target.value)
     }
 
-    handleSubmit = (event) => {
+    //handleSubmit = (event) => {
+        //event.preventDefault()
+        //console.log('in handle submist', this.state)
+        //UserModel.results(this.state)
+    
+    const handleSubmit = (event) => {
         event.preventDefault()
-        console.log('in handle submist', this.state)
-        UserModel.results(this.state)
+        UserModel.results({genres, instruments, isBand})
             .then(data => {
-                console.log(data)
-                this.setState({
-                    genres: [],
-                    instrument: []
-                })
+                console.log(data.users)
+                //const result = data.users
+                const results = data.users.map(user => 
+                    [user._id, findDistance(user.location, loggedInUserObject.location)]
+                    )
+                console.log(results)
+                const sortedResults = results.sort((a, b) => a[1] - b[1])
+                console.log(sortedResults)
+                setQueue(sortedResults)
+                // setset{
+                //     genres: [],
+                //     instrument: []
+                // })
             })
+      
+        props.history.push('/app/home');
+
     }
 
-    render() {
+    // render() {
         return (
             <div>
                 <div className="bg-white p-5 search-container">
-                    <form className="form-group " onSubmit={this.handleSubmit}>
+                    <form className="form-group " onSubmit={handleSubmit}>
                         <h2 className="m-3 b">Search</h2>
                         <h4 className="m-4">Music Genres</h4>
 
@@ -134,7 +195,7 @@ class Search extends Component {
                             search
                             selection
                             data-name="genres"
-                            onChange={this.genresChange}
+                            onChange={genresChange}
                             options={genreList}
                         />
 
@@ -143,8 +204,8 @@ class Search extends Component {
                             <h4 className="m-4">Instruments</h4>
                             <Dropdown
                                 className="m-2"
-                                placeholder='Instruments...' fluid multiple selection options={instruments}
-                                onChange={this.instrumentsChange}
+                                placeholder='Instruments...' fluid multiple selection options={instrumentsList}
+                                onChange={instrumentsChange}
                                 name="instrument"
                             />
 
@@ -156,7 +217,7 @@ class Search extends Component {
                                             type="radio"
                                             name="exampleRadios"
                                             id="exampleRadios1"
-                                            onClick={this.isBandChange}
+                                            onClick={isBandChange}
                                             value="band"
                                         />
                                         Band
@@ -168,7 +229,7 @@ class Search extends Component {
                                             type="radio"
                                             name="exampleRadios"
                                             id="exampleRadios2"
-                                            onClick={this.isBandChange}
+                                            onClick={isBandChange}
                                             value="solo"
                                         />
                                         Solo
@@ -181,7 +242,7 @@ class Search extends Component {
                 </div>
             </div>
         );
-    }
+    //}
 }
 
 export default Search;
