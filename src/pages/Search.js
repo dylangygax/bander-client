@@ -111,13 +111,18 @@ class Search extends Component {
         console.log('in handle submist', this.state)
         UserModel.results(this.state)
             .then(data => {
-                console.log(data)
+                console.log(data.users)
+                //const result = data.users
+                const result = data.users.map(user => 
+                    [user._id, user.location]
+                    )
+                console.log(result)
                 this.setState({
                     genres: [],
                     instrument: []
                 })
             })
-        //this.props.history.push('/app/settings')
+        this.props.history.push('/app/home')
     }
 
     render() {
