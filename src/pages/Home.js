@@ -14,22 +14,24 @@ const Home = (props) => {
     console.log(queue)
     useEffect(() => {
         console.log(queue)
-        UserModel.show(queue[0][0]) //ID of the first user in queue. queue elements are of form: [id, distance]
-            .then(data => {
-                console.log(queue[0])
-                console.log(data.user)
-                setMatch(data.user)
-            })
+        if (queue.length) {
+            UserModel.show(queue[0][0]) //ID of the first user in queue. queue elements are of form: [id, distance]
+                .then(data => {
+                    console.log(queue[0])
+                    console.log(data.user)
+                    setMatch(data.user)
+                })
+        }
     }, [queue])
 
     return (
         <div className="body">
-            {match 
+            {queue.length && match
             ? <>
                 <MatchCard {...match}/>
                 <Footer matchId={match._id}/>
             </>
-            : <h6>loading...</h6>
+            : <h6>no one else found... :^(</h6>
             }
         </div>
     );

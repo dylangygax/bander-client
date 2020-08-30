@@ -4,11 +4,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck, faTimes, faComment } from '@fortawesome/free-solid-svg-icons'
 import UserModel from "../models/user";
 import {UserContext, UserContextProvider} from '../UserContext'
+import {QueueContext, QueueContextProvider} from "../QueueContext"
 
 const Footer = (props) => {
     const [loggedInUser, setUser] = useContext(UserContext)
     console.log(loggedInUser._id)
     console.log(props)
+    const [queue, setQueue] = useContext(QueueContext)
 
     const handleLike = () => {
         //update takes (usedId, updateObject)
@@ -32,6 +34,8 @@ const Footer = (props) => {
                     })
                 }
             })
+        //move to next person in the queue
+        setQueue(queue => queue.slice(1))
     }
     
     const handleDislike = () => {
@@ -44,6 +48,8 @@ const Footer = (props) => {
             .then((data) => {
                 console.log(data)
             })
+        //move to next person in the queue
+        setQueue(queue => queue.slice(1))
     }
     
     return (
