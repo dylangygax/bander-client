@@ -43,6 +43,12 @@ const Settings = (props) => {
         setInfo(obj);
     }
 
+    const handleSpotify = (event) => {
+        let obj = JSON.parse(JSON.stringify(info));
+        obj["spotify"] = event.target.value;
+        setInfo(obj);
+    }
+
     const handleGenres = (event) => {
         let obj = JSON.parse(JSON.stringify(info));
         obj["genres"] = event.target.value;
@@ -146,6 +152,20 @@ const Settings = (props) => {
                     />
                     <br />
                 </label>
+                <label>
+                    <h5 className="text-left">Spotify Link:</h5>
+                    <input
+                        className="form-text form-control col-5 text-xl-left m-3 setting-container"
+                        aria-describedby="spotifyHelp"
+                        placeholder="Enter spotify link please :)"
+                        onChange={handleSpotify}
+                        type="text"
+                        id="email InputEmail"
+                        name="spotify"
+                        value={info.spotify}
+                    />
+                    <br />
+                </label>
                 <input type="file" />
             </div>
         </div>
@@ -156,7 +176,6 @@ const Settings = (props) => {
             <label>
                 <div>
                     <div className="bg-white p-5 search-container">
-                        <h2 className="m-3 b">Search</h2>
                         <h4 className="m-4">Music Genres</h4>
 
                         <Dropdown
