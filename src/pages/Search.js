@@ -1,8 +1,9 @@
-import React, { Component, useState} from 'react';
+import React, { Component, useState, useContext, useEffect} from 'react';
 import { Dropdown } from 'semantic-ui-react';
 import SettingsComponent from "../components/SettingsComponent";
 import Button from "../components/Button";
 import UserModel from '../models/user';
+import { UserContext, UserContextProvider } from '../UserContext'
 
 const genreList = [
     { key: 'Gospel', text: 'Gospel', value: 'Gospel' },
@@ -89,11 +90,24 @@ const Search = (props) => {
     const [instruments, setInstruments] = useState([])
     const [isBand, setIsBand] = useState("")
 
+    const [loggedInUser, setUser] = useContext(UserContext)
+    const [loggedInUserObject, setLoggedInUserObject] = useState({})
 
+    useEffect(() => {
+        UserModel.show(loggedInUser._id)
+            .then(data => {
+                console.log(loggedInUser._id)
+                console.log(data.user)
+                setLoggedInUserObject(data.user)
+                console.log(loggedInUserObject)
+            })
+    }, [loggedInUser._id])
+
+    //converts degrees to radians. neccesary for distance calculation
     const toRad = (number) => {
         return number * Math.PI / 180
     }
-    
+
     //takes location objects with keys "lattitude" and "longitude"
     const findDistance = (locationOne, locationTwo) => {
         const difLat = locationOne.lattitude - locationTwo.lattitude
@@ -147,7 +161,7 @@ const Search = (props) => {
                 console.log(data.users)
                 //const result = data.users
                 const result = data.users.map(user => 
-                    [user._id, findDistance(user.location, loggedInUser.location)]
+                    [user._id, findDistance(user.location, loggedInUserObject.location)]
                     )
                 console.log(result)
                 // setset{
