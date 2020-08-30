@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState} from 'react';
 import { Dropdown } from 'semantic-ui-react';
 import SettingsComponent from "../components/SettingsComponent";
 import Button from "../components/Button";
@@ -78,32 +78,31 @@ const genreList = [
     { key: 'zouk', text: 'Zouk', value: 'zouk' },
 ]
 
-const instruments = [
+const instrumentsList = [
     { key: 'guitar', text: 'Guitar', value: 'guitar' },
 ]
 
 const RADIUS = 3958.8 //radius of the earth in miles
 
-class Search extends Component {
-    state = {
-        genres: [],
-        instruments: [],
-        isBand: ""
-    }
+const Search = (props) => {
+    const [genres, setGenres] = useState([])
+    const [instruments, setInstruments] = useState([])
+    const [isBand, setIsBand] = useState("")
 
-    toRad = (number) => {
+
+    const toRad = (number) => {
         return number * Math.PI / 180
     }
     
     //takes location objects with keys "lattitude" and "longitude"
-    findDistance = (locationOne, locationTwo) => {
+    const findDistance = (locationOne, locationTwo) => {
         const difLat = locationOne.lattitude - locationTwo.lattitude
         const difLong = locationOne.longitude - locationTwo.longitude
     
         console.log(difLat, difLong)
     
-        const difLatRad = this.toRad(difLat)
-        const difLongRad = this.toRad(difLong)
+        const difLatRad = toRad(difLat)
+        const difLongRad = toRad(difLong)
     
         console.log(difLatRad, difLongRad)
     
@@ -111,7 +110,7 @@ class Search extends Component {
         //refactored from http://www.codecodex.com/wiki/Calculate_Distance_Between_Two_Points_on_a_Globe#JavaScript
         const a = 
             Math.sin(difLatRad/2) * Math.sin(difLatRad/2) +
-            Math.cos(this.toRad(locationOne.lattitude)) * Math.cos(this.toRad(locationTwo.lattitude)) * 
+            Math.cos(toRad(locationOne.lattitude)) * Math.cos(toRad(locationTwo.lattitude)) * 
             Math.sin(difLongRad/2) * Math.sin(difLongRad/2)
             ; 
         const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
@@ -119,51 +118,51 @@ class Search extends Component {
         return distance
     }
     
-    genresChange = (e, { value }) => {
+    const genresChange = (e, { value }) => {
         e.persist();
         console.log(e);
         console.log(value);
         console.log(e.currentTarget.getAttribute("data-name"));
-        this.state.genres = value;
+        setGenres(value)
     }
 
-    instrumentsChange = (e, { value }) => {
+    const instrumentsChange = (e, { value }) => {
         e.persist();
-        this.state.instruments = value;
+        setInstruments(value)
     }
 
-    isBandChange = (e) => {
-        this.state.isBand = e.target.value;
+    const isBandChange = (e) => {
+        setIsBand(e.target.value)
     }
 
-    handleSubmit = (event) => {
+    const handleSubmit = (event) => {
         event.preventDefault()
-        console.log('in handle submist', this.state)
+        console.log('in handle submist', genres, instruments, isBand)
         const loggedInUser = {_id: '5f4afbcbd976b21a3f29b8d6', "location": {
             "lattitude": 60,
             "longitude": 10
         }}
-        UserModel.results(this.state)
+        UserModel.results({genres, instruments, isBand})
             .then(data => {
                 console.log(data.users)
                 //const result = data.users
                 const result = data.users.map(user => 
-                    [user._id, this.findDistance(user.location, loggedInUser.location)]
+                    [user._id, findDistance(user.location, loggedInUser.location)]
                     )
                 console.log(result)
-                this.setState({
-                    genres: [],
-                    instrument: []
-                })
+                // setset{
+                //     genres: [],
+                //     instrument: []
+                // })
             })
-        this.props.history.push('/app/home')
+        props.history.push('/app/home')
     }
 
-    render() {
+    // render() {
         return (
             <div>
                 <div className="bg-white p-5 search-container">
-                    <form className="form-group " onSubmit={this.handleSubmit}>
+                    <form className="form-group " onSubmit={handleSubmit}>
                         <h2 className="m-3 b">Search</h2>
                         <h4 className="m-4">Music Genres</h4>
 
@@ -174,7 +173,7 @@ class Search extends Component {
                             search
                             selection
                             data-name="genres"
-                            onChange={this.genresChange}
+                            onChange={genresChange}
                             options={genreList}
                         />
 
@@ -183,8 +182,8 @@ class Search extends Component {
                             <h4 className="m-4">Instruments</h4>
                             <Dropdown
                                 className="m-2"
-                                placeholder='Instruments...' fluid multiple selection options={instruments}
-                                onChange={this.instrumentsChange}
+                                placeholder='Instruments...' fluid multiple selection options={instrumentsList}
+                                onChange={instrumentsChange}
                                 name="instrument"
                             />
 
@@ -197,7 +196,7 @@ class Search extends Component {
                                             type="radio"
                                             name="exampleRadios"
                                             id="exampleRadios1"
-                                            onClick={this.isBandChange}
+                                            onClick={isBandChange}
                                             value="band"
                                         />
                                         Band
@@ -209,7 +208,7 @@ class Search extends Component {
                                             type="radio"
                                             name="exampleRadios"
                                             id="exampleRadios2"
-                                            onClick={this.isBandChange}
+                                            onClick={isBandChange}
                                             value="solo"
                                         />
                                         Solo
@@ -225,7 +224,7 @@ class Search extends Component {
                 </div>
             </div>
         );
-    }
+    //}
 }
 
 export default Search;
