@@ -1,14 +1,15 @@
 import React from "react";
 import routes from "../config/routes";
 import Header from "../components/Header";
+import {QueueContext, QueueContextProvider} from "../QueueContext"
 
 
 function AppBody() {
     return (
-        <div>
+        <QueueContextProvider>
             <Header />
             {routes}
-        </div>
+        </QueueContextProvider>
     );
 }
 

@@ -18,8 +18,8 @@ class Register extends Component {
     }
 
     handleSubmit = (event) => {
-        console.log('in handle submist')
         event.preventDefault()
+        console.log('in handle submist')
         UserModel.create(this.state)
             .then(data => {
                 console.log(data)
@@ -33,7 +33,7 @@ class Register extends Component {
         //NEED TO LOG THE USER IN SOMEHOW
 
         //REDIRECT?
-        this.props.history.push('/app/settings')
+        //this.props.history.push('/app/settings')
     }
 
     render() {
@@ -97,9 +97,9 @@ class Register extends Component {
                         />
                         <br />
                         <div className="justify-content-center flex-column col-12">
-                            <Button buttonText="Register" type="submit" url={"http://localhost:3000/app/Home"} />
+                            {/* <Button buttonText="Register" type="submit" /> */}
                         </div>
-                        {/* <button className="btn btn-primary" type="submit">Register</button> */}
+                        <button className="btn btn-primary" type="submit">Register</button>
                     </div>
                 </form>
             </div>
