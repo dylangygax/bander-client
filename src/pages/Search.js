@@ -4,6 +4,7 @@ import SettingsComponent from "../components/SettingsComponent";
 import Button from "../components/Button";
 import UserModel from '../models/user';
 import { UserContext, UserContextProvider } from '../UserContext'
+import {QueueContext, QueueContextProvider} from "../QueueContext"
 
 const genreList = [
     { key: 'Gospel', text: 'Gospel', value: 'Gospel' },
@@ -93,6 +94,8 @@ const Search = (props) => {
     const [loggedInUser, setUser] = useContext(UserContext)
     const [loggedInUserObject, setLoggedInUserObject] = useState({})
 
+    const [queue, setQueue] = useContext(QueueContext)
+
     useEffect(() => {
         UserModel.show(loggedInUser._id)
             .then(data => {
@@ -160,10 +163,13 @@ const Search = (props) => {
             .then(data => {
                 console.log(data.users)
                 //const result = data.users
-                const result = data.users.map(user => 
+                const results = data.users.map(user => 
                     [user._id, findDistance(user.location, loggedInUserObject.location)]
                     )
-                console.log(result)
+                console.log(results)
+                const sortedResults = results.sort((a, b) => a[1] - b[1])
+                console.log(sortedResults)
+                setQueue(sortedResults)
                 // setset{
                 //     genres: [],
                 //     instrument: []
