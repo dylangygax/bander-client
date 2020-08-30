@@ -82,6 +82,8 @@ const instruments = [
     { key: 'guitar', text: 'Guitar', value: 'guitar' },
 ]
 
+const RADIUS = 3958.8 //radius of the earth in miles
+
 class Search extends Component {
     state = {
         genres: [],
@@ -89,6 +91,34 @@ class Search extends Component {
         isBand: ""
     }
 
+    toRad = (number) => {
+        return number * Math.PI / 180
+    }
+    
+    //takes location objects with keys "lattitude" and "longitude"
+    findDistance = (locationOne, locationTwo) => {
+        const difLat = locationOne.lattitude - locationTwo.lattitude
+        const difLong = locationOne.longitude - locationTwo.longitude
+    
+        console.log(difLat, difLong)
+    
+        const difLatRad = this.toRad(difLat)
+        const difLongRad = this.toRad(difLong)
+    
+        console.log(difLatRad, difLongRad)
+    
+        //Haversine Formula
+        //refactored from http://www.codecodex.com/wiki/Calculate_Distance_Between_Two_Points_on_a_Globe#JavaScript
+        const a = 
+            Math.sin(difLatRad/2) * Math.sin(difLatRad/2) +
+            Math.cos(this.toRad(locationOne.lattitude)) * Math.cos(this.toRad(locationTwo.lattitude)) * 
+            Math.sin(difLongRad/2) * Math.sin(difLongRad/2)
+            ; 
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+        const distance = RADIUS * c
+        return distance
+    }
+    
     genresChange = (e, { value }) => {
         e.persist();
         console.log(e);
@@ -109,12 +139,16 @@ class Search extends Component {
     handleSubmit = (event) => {
         event.preventDefault()
         console.log('in handle submist', this.state)
+        const loggedInUser = {_id: '5f4afbcbd976b21a3f29b8d6', "location": {
+            "lattitude": 60,
+            "longitude": 10
+        }}
         UserModel.results(this.state)
             .then(data => {
                 console.log(data.users)
                 //const result = data.users
                 const result = data.users.map(user => 
-                    [user._id, user.location]
+                    [user._id, this.findDistance(user.location, loggedInUser.location)]
                     )
                 console.log(result)
                 this.setState({
