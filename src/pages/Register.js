@@ -33,7 +33,7 @@ class Register extends Component {
         //NEED TO LOG THE USER IN SOMEHOW
 
         //REDIRECT?
-        //this.props.history.push('/app/settings')
+        this.props.history.push('/app/settings')
     }
 
     render() {

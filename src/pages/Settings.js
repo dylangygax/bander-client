@@ -11,67 +11,57 @@ const genreList = [
     { key: 'harshNoiseWall', text: 'Harsh Noise Wall', value: 'harshNoiseWall' }
 ]
 
-const instruments = [
+const instrumentsList = [
     { key: 'guitar', text: 'Guitar', value: 'guitar' },
+    { key: 'percussion', text: 'Percussion (general)', value: 'percussion' },
+    { key: 'drumSet', text: 'Drum Set', value: 'drumSet' },
+    { key: 'cowbell', text: 'Cowbell', value: 'cowbell' },
+    { key: 'triangle', text: 'Triangle', value: 'triangle' },
 ]
 
 const Settings = (props) => {
 
-    const [loggedInUser, setUser] = useContext(UserContext)
-    const userId = useState(loggedInUser._id)
-    const [info, setInfo] = useState({ boys: "back in town" })
-
+    const [loggedInUser, setUser] = useContext(UserContext);
+    const _id = useState(loggedInUser._id);
+    const [username, setUserName] = useState("");
+    const [bio, setBio] = useState("");
+    const [contact, setContact] = useState(""); //
+    const [musicUrl, setMusicUrl] = useState(""); //
+    const [instruments, setInstruments] = useState([]);
+    const [genres, setGenres] = useState([]);
+    const [bandNSolo, setBandNSolo] = useState(""); //
 
     console.log(loggedInUser)
-    console.log(userId)
+    console.log(_id)
 
-    const handleName = (event) => {
-        let obj = JSON.parse(JSON.stringify(info));
-        obj["name"] = event.target.value;
-        setInfo(obj);
-    }
+    const handleName = (event) => { setUserName(event.target.value); }
+    const handleBio = (event) => { setBio(event.target.value); }
+    const handleContact = (event) => { setContact(event.target.value); }
+    const handlemusicUrl = (event) => { setMusicUrl(event.target.value); }
+    const handleGenres = (event, { value }) => { setGenres(value); }
+    const handleInstruments = (event, { value }) => { setInstruments(value); }
+    const handleBandNSolo = (event) => { setBandNSolo(event.target.value); }
 
-    const handleBio = (event) => {
-        let obj = JSON.parse(JSON.stringify(info));
-        obj["bio"] = event.target.value;
-        setInfo(obj);
-    }
 
-    const handleContact = (event) => {
-        let obj = JSON.parse(JSON.stringify(info));
-        obj["contact"] = event.target.value;
-        setInfo(obj);
-    }
-
-    const handleSpotify = (event) => {
-        let obj = JSON.parse(JSON.stringify(info));
-        obj["spotify"] = event.target.value;
-        setInfo(obj);
-    }
-
-    const handleGenres = (event) => {
-        let obj = JSON.parse(JSON.stringify(info));
-        obj["genres"] = event.target.value;
-        setInfo(obj);
-    }
-
-    const handleInstruments = (event) => {
-        let obj = JSON.parse(JSON.stringify(info));
-        obj["instruments"] = event.target.value;
-        setInfo(obj);
-    }
-
-    const handleBandNSolo = (event) => {
-        let obj = JSON.parse(JSON.stringify(info));
-        obj["bandandsolo"] = event.target.value;
-        setInfo(obj);
-    }
 
     const handleSubmit = (event) => {
+        let isBand = false;
+        if (bandNSolo == "band") isBand = true;
+
+        const info = {
+            username,
+            bio,
+            contact,
+            musicUrl,
+            instruments,
+            genres,
+            isBand
+        };
+
         event.preventDefault()
-        console.log('in handle submist')
-        const userID = loggedInUser._id
-        UserModel.update(userID, this.state)
+        const userID = loggedInUser._id;
+        console.log('in handle submit. userID:' + userID);
+        UserModel.update(userID, info)
             .then(data => {
                 console.log(data)
                 setUser(data)
@@ -104,7 +94,7 @@ const Settings = (props) => {
     }
 
     const AboutMeContent = (
-        <div class="row d-flex justify-content-left w-100 p-3">
+        <div className="row d-flex justify-content-left w-100 p-3">
             <div className="form-group col-md-6 settings-holder">
                 <label>
                     <h5 className="text-left">Name:</h5>
@@ -118,7 +108,7 @@ const Settings = (props) => {
                         type="text"
                         id="email InputEmail"
                         name="name"
-                        value={info.name}
+                        value={username}
                     />
                     <br />
                 </label>
@@ -132,7 +122,7 @@ const Settings = (props) => {
                         type="text"
                         id="email InputEmail"
                         name="bio"
-                        value={info.bio}
+                        value={bio}
                     />
                     <br />
                 </label>
@@ -148,21 +138,21 @@ const Settings = (props) => {
                         type="text"
                         id="email InputEmail"
                         name="contact"
-                        value={info.contact}
+                        value={contact}
                     />
                     <br />
                 </label>
                 <label>
-                    <h5 className="text-left">Spotify Link:</h5>
+                    <h5 className="text-left">Music Url Link:</h5>
                     <input
                         className="form-text form-control col-5 text-xl-left m-3 setting-container"
-                        aria-describedby="spotifyHelp"
-                        placeholder="Enter spotify link please :)"
-                        onChange={handleSpotify}
+                        aria-describedby="musicUrlHelp"
+                        placeholder="Enter Music Url link please :)"
+                        onChange={handlemusicUrl}
                         type="text"
                         id="email InputEmail"
-                        name="spotify"
-                        value={info.spotify}
+                        name="musicUrl"
+                        value={musicUrl}
                     />
                     <br />
                 </label>
@@ -173,71 +163,71 @@ const Settings = (props) => {
 
     const MyMusicContent = (
         <div className="form-group">
-            <label>
-                <div>
-                    <div className="bg-white p-5 search-container">
-                        <h4 className="m-4">Music Genres</h4>
+            <div>
+                <div className="p-2">
+                    <h4 className="m-4">Music Genres</h4>
 
-                        <Dropdown
-                            placeholder='Genres...'
-                            fluid
-                            multiple
-                            search
-                            selection
-                            data-name="genres"
-                            onChange={handleGenres}
-                            options={genreList}
-                        />
+                    <Dropdown
+                        placeholder='Genres...'
+                        fluid
+                        multiple
+                        search
+                        selection
+                        onChange={handleGenres}
+                        options={genreList}
+                        value={genres}
+                    />
 
-                        <div className="ui divider" />
-                        <div className="justify-content-center flex-column col-12">
-                            <h4 className="m-4">Instruments</h4>
-                            <Dropdown
-                                className="m-2"
-                                placeholder='Instruments...' fluid multiple selection options={instruments}
-                                onChange={handleInstruments}
-                                name="instrument"
-                            />
+                    <div className="ui divider" />
 
-                            <div>
-                                <h4>Band or Musician Check</h4>
-                                <div className="form-check">
-                                    <label className="form-check-label">
-                                        <input className="form-check-input"
-                                            type="radio"
-                                            name="exampleRadios"
-                                            id="exampleRadios1"
-                                            onClick={handleBandNSolo}
-                                            value="band"
-                                        />
+                    <h4 className="m-4">Instruments</h4>
+                    <Dropdown
+                        placeholder='Instruments...'
+                        fluid
+                        multiple
+                        search
+                        selection
+                        onChange={handleInstruments}
+                        options={instrumentsList}
+                        value={instruments}
+                    />
+
+                    <div>
+                        <h4>Band or Musician Check</h4>
+                        <div className="form-check">
+                            <label className="form-check-label">
+                                <input className="form-check-input"
+                                    type="radio"
+                                    name="exampleRadios"
+                                    id="exampleRadios1"
+                                    onClick={handleBandNSolo}
+                                    value="band"
+                                />
                                         Band
                                     </label>
-                                </div>
-                                <div className="form-check">
-                                    <label className="form-check-label">
-                                        <input className="form-check-input"
-                                            type="radio"
-                                            name="exampleRadios"
-                                            id="exampleRadios2"
-                                            onClick={handleBandNSolo}
-                                            value="solo"
-                                        />
+                        </div>
+                        <div className="form-check">
+                            <label className="form-check-label">
+                                <input className="form-check-input"
+                                    type="radio"
+                                    name="exampleRadios"
+                                    id="exampleRadios2"
+                                    onClick={handleBandNSolo}
+                                    value="solo"
+                                />
                                         Solo
                                     </label>
-                                </div>
-                            </div>
-                            <button type="submit">Login</button>
                         </div>
                     </div>
+                    <button type="submit">Login</button>
                 </div>
-            </label>
-
+            </div>
         </div>
     );
 
     const profilePanels = [
         { key: 'panel-1a', title: 'About Me', content: { content: AboutMeContent } },
-        { key: 'panel-ba', title: 'My Music', content: { content: MyMusicContent } },
+        { key: 'panel-2a', title: 'My Music', content: { content: MyMusicContent } },
     ];
 
     const ProfileContent = (
@@ -278,61 +268,6 @@ const Settings = (props) => {
                 <h4>Hello {loggedInUser.username}</h4>
                 <form className="form-group " onSubmit={handleSubmit}>
                     <h3 className="m-5">Settings</h3>
-                    {/* <div className="row d-flex justify-content-center m-3 text-center">
-                        <div className="col-12 flex m-3">
-                            <label className="reg-text form-row"
-                                htmlFor="InputEmail">Name</label>
-                        </div>
-                        <input
-                            className="form-text form-control col-5 text-xl-left m-3 content-container"
-                            aria-describedby="nameHelp"
-                            placeholder="Enter name here"
-                            onChange={handleName}
-                            type="text"
-                            id="email InputEmail"
-                            name="name"
-                            value={info.name}
-                        />
-                        <br />
-                        <label className="reg-text form-row"
-                            htmlFor="InputEmail">Bio</label>
-                    </div>
-                    <div>
-                        <input
-                            className="form-text form-control col-5 text-xl-left m-3"
-                            aria-describedby="bioHelp"
-                            placeholder="Enter bio here"
-                            onChange={handleBio}
-                            type="text"
-                            id="email InputEmail"
-                            name="bio"
-                            value={info.bio}
-                        />
-                    </div>
-                    <br />
-                    <label className="reg-text form-row"
-                        htmlFor="InputEmail">Bio</label>
-                    <div>
-                        <input
-                            className="form-text form-control col-5 text-xl-left m-3"
-                            aria-describedby="contactHelp"
-                            placeholder="Enter contact here"
-                            onChange={handleContact}
-                            type="text"
-                            id="email InputEmail"
-                            name="contact"
-                            value={info.contact}
-                        />
-                    </div>
-                    <br /> */}
-                    {/* <div>
-                        <button onClick={handleLogout}>logout</button>
-                    </div>
-                    <div>
-                        <button onClick={handleDelete}>delete</button>
-                    </div> */}
-                    <br />
-
                     <Accordion className="w-100 p-3" defaultActiveIndex={0} panels={rootPanels} styled />
                     <button className="btn btn-primary" type="submit">Update</button>
                     <br />
