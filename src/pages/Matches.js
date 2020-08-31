@@ -25,7 +25,7 @@ const Matches = () => {
                             console.log(data.user)
                             const matchObject = data.user
                             //matchesArray.push(<MatchCard {...matchObject}/>)
-                            setMatchesArray(matchesArray => [...matchesArray, <MatchCard {...matchObject} key={matchIncrementer} />])
+                            setMatchesArray(matchesArray => [...matchesArray, <MatchCard {...matchObject} key={matchIncrementer} showContact={true} />])
                         })
                 });
             })
