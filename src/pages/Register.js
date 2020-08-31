@@ -1,15 +1,18 @@
-import React, { Component, useState, useEffect } from 'react';
+import React, { Component, useState, useEffect, useContext } from 'react';
 import UserModel from '../models/user'
-// import cors from 'cors'
-// import Button from "../components/Button"
 
-const Register = () => {
+import cors from 'cors'
+import Button from "../components/Button"
+import {UserContext} from '../UserContext'
 
+const Register = (props) => {
     const [email, setEmail] = useState('')
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [password2, setPassword2] = useState('')
     const [location, setLocation] = useState('')
+
+    const [loggedInUser, setUser] = useContext(UserContext)
 
     const handleEmail = (event) => {
         setEmail(event.target.value)
@@ -60,7 +63,28 @@ const Register = () => {
         if (location) {
             UserModel.create({ email, password, username, location })
                 .then(data => {
-                    console.log(data)
+                    console.log(data.user)
+                    UserModel.login({email, password})
+                    .then(data => {
+                        if (!data._id) {
+                            console.log('Login error')
+                            return false
+                        }
+                        console.log(data)
+                        setUser(data)
+                        console.log(localStorage.getItem('uid'))
+                        for (let property in data) {
+                            //console.log(`${property}: ${data[property]}`)
+                            localStorage.setItem(`${property}`, `${data[property]}`);
+                        }
+                        console.log(localStorage.getItem('uid'))
+                        //REDIRECT
+                        props.history.push('/app/settings')
+                    })
+                    .catch(err => {
+                        console.log('Login error')
+                        console.log(err)
+                    })
                 })
         }
     }, [location])

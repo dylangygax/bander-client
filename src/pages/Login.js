@@ -41,6 +41,8 @@ const LoginForm = (props) => {
                     localStorage.setItem(`${property}`, `${data[property]}`);
                 }
                 console.log(localStorage.getItem('uid'))
+                //REDIRECT
+                props.history.push('/app/settings')
             })
             .catch(err => {
                 setErrorDisplayText('Invalid Login/Password')
