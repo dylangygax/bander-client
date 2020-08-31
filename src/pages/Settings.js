@@ -205,7 +205,7 @@ const Settings = (props) => {
     const [contact, setContact] = useState("");
     const [musicUrl, setMusicUrl] = useState("");
     const [instruments, setInstruments] = useState([]);
-    const [photo, setPhoto] = useState([]);
+    const [photo, setPhoto] = useState("");
     const [genres, setGenres] = useState([]);
     const [bandNSolo, setBandNSolo] = useState("");
 
@@ -218,7 +218,7 @@ const Settings = (props) => {
     const handleMusicUrl = (event) => { setMusicUrl(event.target.value); }
     const handleGenres = (event, { value }) => { setGenres(value); }
     const handleInstruments = (event, { value }) => { setInstruments(value); }
-    const handlePhoto = (event, { value }) => { setPhoto(value); }
+    const handlePhoto = (event) => { setPhoto(event.target.value); }
     const handleBandNSolo = (event) => { setBandNSolo(event.target.value); }
 
 

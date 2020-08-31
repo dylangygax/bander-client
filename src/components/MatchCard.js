@@ -8,10 +8,10 @@ const MatchCard = (props) => {
     var bandString;
     var contactString;
 
-    if (props.instruments.length > 0) instrumentsString = props.instruments.join(" , ");
+    if (props.instruments) instrumentsString = props.instruments.join(" , ");
     else instrumentsString = "N / A";
 
-    if (props.genres.length > 0) genresString = props.genres.join(" , ");
+    if (props.genres) genresString = props.genres.join(" , ");
     else genresString = "N / A";
 
     if (props.isBand) bandString = "We are a Band.";
@@ -23,7 +23,7 @@ const MatchCard = (props) => {
         <div>
             <div className="bg-white p-5 match-container flex-column col-12 m-auto">
                 <div className="card-body">
-                    <img className="profile-image flex-column col-12" src="https://thispersondoesnotexist.com/image" />
+                    <img className="profile-image flex-column col-12" src={props.photo} />
                     <h2 className="card-title">{props.username}</h2>
                     <h3 className="card-subtitle">Instruments: {instrumentsString}</h3>
                     <h3 className="card-subtitle">Genres: {genresString}</h3>
