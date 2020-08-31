@@ -162,6 +162,7 @@ const Search = (props) => {
         UserModel.results({genres, instruments, isBand})
             .then(data => {
                 console.log(data.users)
+                console.log(loggedInUserObject)
                 //const result = data.users
                 const results = data.users.map(user => 
                     [user._id, findDistance(user.location, loggedInUserObject.location)]
