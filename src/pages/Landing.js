@@ -12,7 +12,7 @@ const Landing = () => {
             </div>
             <div id="login-button-container" className="justify-content-center flex-column col-12">
                 <Button buttonText="Login" url={"http://localhost:3000/login"} />
-                <Button buttonText="Register" url={"http://localhost:3000/app/register"} />
+                <Button buttonText="Register" url={"http://localhost:3000/register"} />
             </div>
             <div id="login-button-container" className="justify-content-center flex-column col-12">
                 <SecondaryButton buttonText="Continue Without Logging In" url={"http://localhost:3000/app/home"} />

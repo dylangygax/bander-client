@@ -15,7 +15,6 @@ import Profile from "../pages/Profile"
 export default (
     <Switch>
         <Route path="/app/Home" component={Home} />
-        <Route path="/app/Register" component={Register} />
         <Route path="/app/Search" component={Search} />
         <Route path="/app/Matches" component={Matches} />
         <Route path="/app/Show/:id" component={UserShow} />
