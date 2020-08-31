@@ -11,7 +11,7 @@ class MatchCard extends Component {
                         <h2 className="card-title">{this.props.username}</h2>
                         <h3 className="card-subtitle">{this.props.instrument}</h3>
                         <p className="card-text">{this.props.bio}</p>
-                        <a href="http://neopets.com" className="card-link">spotify link</a>
+                        <a href={this.props.musicUrl} className="card-link" target="_blank">here my music here</a>
                     </div>
                 </div>
             </div>
