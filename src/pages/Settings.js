@@ -45,6 +45,7 @@ const Settings = (props) => {
 
 
     const handleSubmit = (event) => {
+        event.preventDefault()
         let isBand = false;
         if (bandNSolo == "band") isBand = true;
 
@@ -58,13 +59,12 @@ const Settings = (props) => {
             isBand
         };
 
-        event.preventDefault()
         const userID = loggedInUser._id;
         console.log('in handle submit. userID:' + userID);
         UserModel.update(userID, info)
             .then(data => {
                 console.log(data)
-                setUser(data)
+                setUser(data.user)
             })
     }
 
