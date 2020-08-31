@@ -14,21 +14,21 @@ const Footer = (props) => {
 
     const handleLike = () => {
         //update takes (usedId, updateObject)
-        UserModel.update(`${loggedInUser._id}`, {usersLiked: `${props.matchId}`})
+        UserModel.update(loggedInUser._id, { $push: {usersLiked: [props.matchId]}})
             .then((data) => {
                 console.log(data)
             })
-        UserModel.update(`${props.matchId}`, {usersWhoLikeYou: `${loggedInUser._id}`})
+        UserModel.update(props.matchId, { $push: {usersWhoLikeYou: loggedInUser._id}})
             .then((data) => {
                 console.log(data)
                 //Looking for a match
                 if (data.user.usersLiked.includes(loggedInUser._id)){
                     console.log("that's a match!!!!!!!!")
-                    UserModel.update(`${loggedInUser._id}`, {matches: `${props.matchId}`})
+                    UserModel.update(loggedInUser._id, { $push: {matches: `${props.matchId}`}})
                         .then((data) => {
                         console.log(data)
                     })
-                    UserModel.update(`${props.matchId}`, {matches: `${loggedInUser._id}`})
+                    UserModel.update(props.matchId, { $push: {matches: `${loggedInUser._id}`}})
                         .then((data) => {
                         console.log(data)
                     })
@@ -40,11 +40,11 @@ const Footer = (props) => {
     
     const handleDislike = () => {
         //update takes (usedId, updateObject)
-        UserModel.update(`${loggedInUser._id}`, {usersDisliked: `${props.matchId}`})
+        UserModel.update(`${loggedInUser._id}`, { $push: {usersDisliked: `${props.matchId}`}})
             .then((data) => {
                 console.log(data)
             })
-        UserModel.update(`${props.matchId}`, {usersWhoDislikeYou: `${loggedInUser._id}`})
+        UserModel.update(`${props.matchId}`, { $push: {usersWhoDislikeYou: `${loggedInUser._id}`}})
             .then((data) => {
                 console.log(data)
             })
