@@ -1,10 +1,10 @@
-import React, { Component, useState, useContext, useEffect} from 'react';
+import React, { Component, useState, useContext, useEffect } from 'react';
 import { Dropdown } from 'semantic-ui-react';
 import SettingsComponent from "../components/SettingsComponent";
 import Button from "../components/Button";
 import UserModel from '../models/user';
 import { UserContext, UserContextProvider } from '../UserContext'
-import {QueueContext, QueueContextProvider} from "../QueueContext"
+import { QueueContext, QueueContextProvider } from "../QueueContext"
 
 const genreList = [
     { key: 'Gospel', text: 'Gospel', value: 'Gospel' },
@@ -82,6 +82,30 @@ const genreList = [
 
 const instrumentsList = [
     { key: 'guitar', text: 'Guitar', value: 'guitar' },
+    { key: 'percussion', text: 'Percussion (general)', value: 'percussion' },
+    { key: 'drumSet', text: 'Drum Set', value: 'drumSet' },
+    { key: 'cowbell', text: 'Cowbell', value: 'cowbell' },
+    { key: 'triangle', text: 'Triangle', value: 'triangle' },
+    { key: 'glockenspiel', text: 'Glockenspiel', value: 'glockenspiel' },
+    { key: 'gong', text: 'Gong', value: 'gong' },
+    { key: 'hang', text: 'Hang', value: 'hang' },
+    { key: 'maracas', text: 'Maracas', value: 'maracas' },
+    { key: 'marimba', text: 'Marimba', value: 'marimba' },
+    { key: 'spoon', text: 'Spoon', value: 'spoon' },
+    { key: 'tambourine', text: 'Tambourine', value: 'tambourine' },
+    { key: 'vibraphone', text: 'Vibraphone', value: 'vibraphone' },
+    { key: 'xylophone', text: 'Xylophone', value: 'xylophone' },
+    { key: 'percussionUl', text: 'Percussion Unlisted (in bio)', value: 'percussionUl' },
+    { key: 'windInstruments', text: 'Wind Instruments (general)', value: 'windInstruments' },
+    { key: 'clarinet', text: 'Clarinet', value: 'clarinet' },
+    { key: 'airHorn', text: 'Air Horn', value: 'airHorn' },
+    { key: 'bagpipes', text: 'Bagpipes', value: 'bagpipes' },
+    { key: 'bariotoneHorn', text: 'Bariotone Horn', value: 'bariotoneHorn' },
+    { key: 'bassoon', text: 'Bassoon', value: 'bassoon' },
+    { key: 'contraBassoon', text: 'Contra Bassoon', value: 'contraBassoon' },
+    { key: 'doubleBassoon', text: 'Double Bassoon', value: 'doubleBassoon' },
+    { key: 'bawu', text: 'Bawu', value: 'bawu' },
+
 ]
 
 const RADIUS = 3958.8 //radius of the earth in miles
@@ -115,26 +139,26 @@ const Search = (props) => {
     const findDistance = (locationOne, locationTwo) => {
         const difLat = locationOne.lattitude - locationTwo.lattitude
         const difLong = locationOne.longitude - locationTwo.longitude
-    
+
         console.log(difLat, difLong)
-    
+
         const difLatRad = toRad(difLat)
         const difLongRad = toRad(difLong)
-    
+
         console.log(difLatRad, difLongRad)
-    
+
         //Haversine Formula
         //refactored from http://www.codecodex.com/wiki/Calculate_Distance_Between_Two_Points_on_a_Globe#JavaScript
-        const a = 
-            Math.sin(difLatRad/2) * Math.sin(difLatRad/2) +
-            Math.cos(toRad(locationOne.lattitude)) * Math.cos(toRad(locationTwo.lattitude)) * 
-            Math.sin(difLongRad/2) * Math.sin(difLongRad/2)
-            ; 
-        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+        const a =
+            Math.sin(difLatRad / 2) * Math.sin(difLatRad / 2) +
+            Math.cos(toRad(locationOne.lattitude)) * Math.cos(toRad(locationTwo.lattitude)) *
+            Math.sin(difLongRad / 2) * Math.sin(difLongRad / 2)
+            ;
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
         const distance = RADIUS * c
         return distance
     }
-    
+
     const genresChange = (e, { value }) => {
         e.persist();
         console.log(e);
@@ -153,19 +177,19 @@ const Search = (props) => {
     }
 
     //handleSubmit = (event) => {
-        //event.preventDefault()
-        //console.log('in handle submist', this.state)
-        //UserModel.results(this.state)
-    
+    //event.preventDefault()
+    //console.log('in handle submist', this.state)
+    //UserModel.results(this.state)
+
     const handleSubmit = (event) => {
         event.preventDefault()
-        UserModel.results({genres, instruments, isBand})
+        UserModel.results({ genres, instruments, isBand })
             .then(data => {
                 console.log(data.users)
                 //const result = data.users
-                const results = data.users.map(user => 
+                const results = data.users.map(user =>
                     [user._id, findDistance(user.location, loggedInUserObject.location)]
-                    )
+                )
                 console.log(results)
                 const sortedResults = results.sort((a, b) => a[1] - b[1])
                 console.log(sortedResults)
@@ -175,73 +199,73 @@ const Search = (props) => {
                 //     instrument: []
                 // })
             })
-      
+
         props.history.push('/app/home');
 
     }
 
     // render() {
-        return (
-            <div>
-                <div className="bg-white p-5 search-container">
-                    <form className="form-group " onSubmit={handleSubmit}>
-                        <h2 className="m-3 b">Search</h2>
-                        <h4 className="m-4">Music Genres</h4>
+    return (
+        <div>
+            <div className="bg-white p-5 search-container">
+                <form className="form-group " onSubmit={handleSubmit}>
+                    <h2 className="m-3 b">Search</h2>
+                    <h4 className="m-4">Music Genres</h4>
 
+                    <Dropdown
+                        placeholder='Genres...'
+                        fluid
+                        multiple
+                        search
+                        selection
+                        data-name="genres"
+                        onChange={genresChange}
+                        options={genreList}
+                    />
+
+                    <div className="ui divider" />
+                    <div className="justify-content-center flex-column col-12">
+                        <h4 className="m-4">Instruments</h4>
                         <Dropdown
-                            placeholder='Genres...'
-                            fluid
-                            multiple
-                            search
-                            selection
-                            data-name="genres"
-                            onChange={genresChange}
-                            options={genreList}
+                            className="m-2"
+                            placeholder='Instruments...' fluid multiple selection options={instrumentsList}
+                            onChange={instrumentsChange}
+                            name="instrument"
                         />
 
-                        <div className="ui divider" />
-                        <div className="justify-content-center flex-column col-12">
-                            <h4 className="m-4">Instruments</h4>
-                            <Dropdown
-                                className="m-2"
-                                placeholder='Instruments...' fluid multiple selection options={instrumentsList}
-                                onChange={instrumentsChange}
-                                name="instrument"
-                            />
-
-                            <div>
-                                <h4>Band or Musician Check</h4>
-                                <div className="form-check">
-                                    <label className="form-check-label">
-                                        <input className="form-check-input"
-                                            type="radio"
-                                            name="exampleRadios"
-                                            id="exampleRadios1"
-                                            onClick={isBandChange}
-                                            value="band"
-                                        />
+                        <div>
+                            <h4>Band or Musician Check</h4>
+                            <div className="form-check">
+                                <label className="form-check-label">
+                                    <input className="form-check-input"
+                                        type="radio"
+                                        name="exampleRadios"
+                                        id="exampleRadios1"
+                                        onClick={isBandChange}
+                                        value="band"
+                                    />
                                         Band
                                     </label>
-                                </div>
-                                <div className="form-check">
-                                    <label className="form-check-label">
-                                        <input className="form-check-input"
-                                            type="radio"
-                                            name="exampleRadios"
-                                            id="exampleRadios2"
-                                            onClick={isBandChange}
-                                            value="solo"
-                                        />
+                            </div>
+                            <div className="form-check">
+                                <label className="form-check-label">
+                                    <input className="form-check-input"
+                                        type="radio"
+                                        name="exampleRadios"
+                                        id="exampleRadios2"
+                                        onClick={isBandChange}
+                                        value="solo"
+                                    />
                                         Solo
                                     </label>
-                                </div>
                             </div>
-                            <button type="submit">Login</button>
                         </div>
-                    </form>
-                </div>
+                        <button type="submit">Login</button>
+                    </div>
+                </form>
             </div>
-        );
+        </div>
+    );
     //}
 }
 

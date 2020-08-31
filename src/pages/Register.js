@@ -70,7 +70,7 @@ const Register = () => {
         //NEED TO LOG THE USER IN SOMEHOW
 
         //REDIRECT?
-        //this.props.history.push('/app/settings')
+        this.props.history.push('/app/settings')
     }
 
     useEffect(() => {
