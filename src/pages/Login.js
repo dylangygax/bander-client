@@ -41,24 +41,14 @@ const LoginForm = (props) => {
                     setErrorDisplayText('Invalid Login/Password')
                     return false
                 }
-                //props.storeUser(data.user) ///LINE IS ERRING. MORE TO SET UP
-                //console.log(props.loggedInUser)
                 console.log(data)
-                //console.log(data.user)
                 setUser(data)
                 console.log(localStorage.getItem('uid'))
-                // localStorage.setItem('uid', data._id)
-                // localStorage.setItem('username', data.username)
                 for (let property in data) {
                     //console.log(`${property}: ${data[property]}`)
                     localStorage.setItem(`${property}`, `${data[property]}`);
                 }
                 console.log(localStorage.getItem('uid'))
-                //console.log(props.loggedInUser)
-                //props.history.push('/profile')
-                
-                //REDIRECT
-                //props.history.push('/profile')
             })
             .catch(err => {
                 setErrorDisplayText('Invalid Login/Password')
