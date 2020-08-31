@@ -245,6 +245,8 @@ const Settings = (props) => {
             .then(data => {
                 console.log(data)
                 setUser(data.user)
+                //REDIRECT
+                props.history.push('/app/profile')
             })
     }
 
