@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import Footer from "../components/Footer";
-import MatchCard from "../components/MatchCard"
+import MatchListing from "../components/MatchListing"
 import UserModel from '../models/user';
 import { UserContext, UserContextProvider } from '../UserContext';
 
@@ -19,13 +19,13 @@ const Matches = () => {
                 console.log(loggedInUserObject)
                 const reversedMatches = data.user.matches.reverse()
                 reversedMatches.forEach((match, i) => {
-                    setMatchIncrementer(matchIncrementer + 1)
+                    setMatchIncrementer(i)
                     UserModel.show(match)
                         .then(data => {
                             console.log(data.user)
                             const matchObject = data.user
                             //matchesArray.push(<MatchCard {...matchObject}/>)
-                            setMatchesArray(matchesArray => [...matchesArray, <MatchCard {...matchObject} key={matchIncrementer} showContact={true} />])
+                            setMatchesArray(matchesArray => [...matchesArray, <MatchListing {...matchObject} key={i} showContact={true} />])
                         })
                 });
             })
@@ -35,9 +35,11 @@ const Matches = () => {
 
     return (
         <div>
-            {/* <h1>we all straight vibing fam</h1> */}
-            {matchesArray}
-            {/* <Footer /> */}
+            <div className="bg-white p-5 match-container flex-column col-12 m-auto">
+                <div className="card-body">
+                    {matchesArray}
+                </div>
+            </div>
         </div>
     );
 }
