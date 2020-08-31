@@ -464,7 +464,8 @@ const Settings = (props) => {
                 <form className="form-group " onSubmit={handleSubmit}>
                     <h3 className="m-5">Settings</h3>
                     <Accordion className="w-100 p-3" defaultActiveIndex={0} panels={rootPanels} styled />
-                    <button className="btn btn-primary" type="submit">Update</button>
+                    <br />
+                    <button className="btn btn-warning" type="submit">Update</button>
                     <br />
                 </form>
             </div>

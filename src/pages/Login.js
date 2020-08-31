@@ -48,33 +48,39 @@ const LoginForm = (props) => {
             })
     }
 
-    // render () {
     return (
         <div>
-            <h1>Hello {loggedInUser.instrument}</h1>
-            <h3>{errorDisplayText}</h3>
-            <form onSubmit={handleSubmit}>
-                <h1>Login Login Login</h1>
-                <p>email</p>
-                <input
-                    onChange={handleEmailChange}
-                    type="text"
-                    id="email"
-                    name="email"
-                    value={inputEmail}
-                />
-                <p>password</p>
-                <input
-                    onChange={handlePasswordChange}
-                    type="password"
-                    id="password"
-                    name="password"
-                    value={inputPassword}
-                />
-                <br />
-                <button type="submit">Login</button>
-            </form>
-        </div>
+            {/* <h1>Hello {loggedInUser.instrument}</h1> */}
+            {/* <h3>{errorDisplayText}</h3> */}
+            <div className="bg-white p-5 search-container">
+                <div className="row d-flex justify-content-left w-100 p-3">
+                    <form className="form-group col-md-6 settings-holder" onSubmit={handleSubmit}>
+                        <h2 className="m-3">Login Below</h2>
+                        <br />
+                        <h3 className="text-left">email</h3>
+                        <input
+                            className="form-text form-control col-6 text-xl-left m-3"
+                            onChange={handleEmailChange}
+                            type="text"
+                            id="email"
+                            name="email"
+                            value={inputEmail}
+                        />
+                        <h3 className="text-left">password</h3>
+                        <input
+                            className="form-text form-control col-6 text-xl-left m-3"
+                            onChange={handlePasswordChange}
+                            type="password"
+                            id="password"
+                            name="password"
+                            value={inputPassword}
+                        />
+                        <br />
+                        <button className="btn btn-danger" type="submit">Login</button>
+                    </form>
+                </div>
+            </div>
+        </div >
     );
 }
 

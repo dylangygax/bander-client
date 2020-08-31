@@ -1,7 +1,7 @@
 import React, { Component, useState, useEffect } from 'react';
 import UserModel from '../models/user'
-import cors from 'cors'
-import Button from "../components/Button"
+// import cors from 'cors'
+// import Button from "../components/Button"
 
 const Register = () => {
 
@@ -44,23 +44,13 @@ const Register = () => {
         console.warn(`ERROR(${err.code}): ${err.message}`);
     }
 
-    // const handleChange = (event) => {
-    //     this.setState({
-    //         [event.target.name]: event.target.value
-    //     })
-    // }
-
-
     const handleSubmit = (event) => {
         event.preventDefault()
         console.log('in handle submist')
-        // const position = navigator.geolocation.getCurrentPosition(this.success, this.error, this.options)
-        // this.state.location = {lattitude: position.coords.latitude, longitude: position.coords.longitude}
         navigator.geolocation.getCurrentPosition((position) => {
             setLocation({ lattitude: position.coords.latitude, longitude: position.coords.longitude })
             console.log({ email, password, username })
         })
-        //NEED TO LOG THE USER IN SOMEHOW
 
         //REDIRECT?
         this.props.history.push('/app/settings')
@@ -71,16 +61,9 @@ const Register = () => {
             UserModel.create({ email, password, username, location })
                 .then(data => {
                     console.log(data)
-                    // this.setState({
-                    //     username: '',
-                    //     email: '',
-                    //     password: '',
-                    //     password2: ''
-                    //})
                 })
         }
     }, [location])
-    //render() {
     return (
         <div className="bg-white p-5 search-container">
             <form className="form-group " onSubmit={handleSubmit}>
@@ -90,10 +73,9 @@ const Register = () => {
                         <label className="form-row"
                             htmlFor="InputEmail">Email Address</label>
                     </div>
-                    {/* <p className="form-control">email</p> */}
                     <input
                         type="email"
-                        className="form-text form-control col-5 text-xl-left m-3"
+                        className="form-text form-control col-6 text-xl-left m-3"
                         aria-describedby="emailHelp"
                         placeholder="Enter email"
                         onChange={handleEmail}
@@ -106,7 +88,7 @@ const Register = () => {
                         htmlFor="InputUsername">Username</label>
                     <input
                         type="username"
-                        className="form-text form-control col-5 text-xl-left m-3"
+                        className="form-text form-control col-6 text-xl-left m-3"
                         aria-describedby="usernameHelp"
                         placeholder="Enter username"
                         onChange={handleUsername}
@@ -120,7 +102,7 @@ const Register = () => {
                     <input
                         onChange={handlePassword}
                         type="password"
-                        className="form-text form-control col-5 text-xl-left m-3"
+                        className="form-text form-control col-6 text-xl-left m-3"
                         aria-describedby="passwordHelp"
                         placeholder="Enter password"
                         id="password InpuPassword"
@@ -132,7 +114,7 @@ const Register = () => {
                     <input
                         onChange={handlePassword2}
                         type="password"
-                        className="form-text form-control col-5 text-xl-left m-3"
+                        className="form-text form-control col-6 text-xl-left m-3"
                         aria-describedby="passwordHelp"
                         placeholder="Enter password"
                         id="password2 InpuPassword"
@@ -140,15 +122,13 @@ const Register = () => {
                         value={password2}
                     />
                     <br />
-                    <div className="justify-content-center flex-column col-12">
-                        {/* <Button buttonText="Register" type="submit" /> */}
+                    <div className="justify-content-center flex-column col-6">
                     </div>
                     <button className="btn btn-primary" type="submit">Register</button>
                 </div>
             </form>
         </div>
     );
-    //}
 }
 
 export default Register;

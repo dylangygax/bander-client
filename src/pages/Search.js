@@ -352,8 +352,9 @@ const Search = (props) => {
                                         Solo
                                     </label>
                             </div>
+                            <br />
                         </div>
-                        <button type="submit">Login</button>
+                        <button className="btn btn-lg btn-warning" type="submit">Search</button>
                     </div>
                 </form>
             </div>
