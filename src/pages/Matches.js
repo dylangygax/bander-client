@@ -1,5 +1,4 @@
 import React, { useState, useContext, useEffect } from 'react';
-import Footer from "../components/Footer";
 import MatchListing from "../components/MatchListing"
 import UserModel from '../models/user';
 import { UserContext, UserContextProvider } from '../UserContext';
