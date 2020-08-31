@@ -194,7 +194,6 @@ const instrumentsList = [
     { key: 'ukulele', text: 'Ukulele', value: 'ukulele' },
     { key: 'viola', text: 'Viola', value: 'viola' },
     { key: 'violin', text: 'Violin', value: 'violin' },
-    { key: 'bawu', text: 'Bawu', value: 'bawu' },
 ]
 
 const Settings = (props) => {
@@ -203,11 +202,12 @@ const Settings = (props) => {
     const _id = useState(loggedInUser._id);
     const [username, setUserName] = useState("");
     const [bio, setBio] = useState("");
-    const [contact, setContact] = useState(""); //
-    const [musicUrl, setMusicUrl] = useState(""); //
+    const [contact, setContact] = useState("");
+    const [musicUrl, setMusicUrl] = useState("");
     const [instruments, setInstruments] = useState([]);
+    const [photo, setPhoto] = useState([]);
     const [genres, setGenres] = useState([]);
-    const [bandNSolo, setBandNSolo] = useState(""); //
+    const [bandNSolo, setBandNSolo] = useState("");
 
     console.log(loggedInUser)
     console.log(_id)
@@ -215,9 +215,10 @@ const Settings = (props) => {
     const handleName = (event) => { setUserName(event.target.value); }
     const handleBio = (event) => { setBio(event.target.value); }
     const handleContact = (event) => { setContact(event.target.value); }
-    const handlemusicUrl = (event) => { setMusicUrl(event.target.value); }
+    const handleMusicUrl = (event) => { setMusicUrl(event.target.value); }
     const handleGenres = (event, { value }) => { setGenres(value); }
     const handleInstruments = (event, { value }) => { setInstruments(value); }
+    const handlePhoto = (event, { value }) => { setPhoto(value); }
     const handleBandNSolo = (event) => { setBandNSolo(event.target.value); }
 
 
@@ -232,6 +233,7 @@ const Settings = (props) => {
             bio,
             contact,
             musicUrl,
+            photo,
             instruments,
             genres,
             isBand
@@ -253,10 +255,8 @@ const Settings = (props) => {
             .then(response => {
                 console.log(response)
                 localStorage.clear()
-                //REDIRECT
                 props.history.push('/')
                 setUser(null)
-                //REDIRECT
             })
     }
 
@@ -321,12 +321,14 @@ const Settings = (props) => {
                     <br />
                 </label>
                 <label>
-                    <h5 className="text-left">Music Url Link:</h5>
+                    <h5 className="text-left">Music URL:</h5>
                     <input
                         className="form-text form-control col-5 text-xl-left m-3 setting-container"
+                        id="musicUrlSetting"
+                        rows="3"
                         aria-describedby="musicUrlHelp"
-                        placeholder="Enter Music Url link please :)"
-                        onChange={handlemusicUrl}
+                        placeholder="Enter Music URL here"
+                        onChange={handleMusicUrl}
                         type="text"
                         id="email InputEmail"
                         name="musicUrl"
@@ -334,7 +336,23 @@ const Settings = (props) => {
                     />
                     <br />
                 </label>
-                <input type="file" />
+                <label>
+                    <h5 className="text-left">Photo URL:</h5>
+                    <input
+                        className="form-text form-control col-5 text-xl-left m-3 setting-container"
+                        id="photoSetting"
+                        rows="3"
+                        aria-describedby="photoHelp"
+                        placeholder="Enter Photo URL here"
+                        onChange={handlePhoto}
+                        type="text"
+                        id="email InputEmail"
+                        name="photo"
+                        value={photo}
+                    />
+                    <br />
+                </label>
+                {/* <input type="file" /> */}
             </div>
         </div>
     );
@@ -421,15 +439,15 @@ const Settings = (props) => {
 
     const GeneralContent = (
         <div>
-            <label>
-                Location Range:
-                <input id="rangeSetting" type="number" className="form-control" />
-            </label>
             <div>
-                <button onClick={handleLogout}>logout</button>
+                <button type="button" className="btn btn-outline-warning" onClick={handleLogout}>logout</button>
             </div>
             <div>
-                <button onClick={handleDelete}>delete</button>
+                <img src="http://www.pngall.com/wp-content/uploads/2016/09/Clef-Note.png" />
+            </div>
+            <div>
+                <br />
+                <button type="button" className="btn-sm btn-outline-warning" onClick={handleDelete}>delete</button>
             </div>
         </div>
     );
