@@ -17,7 +17,8 @@ const Matches = () => {
                 console.log(data.user)
                 setLoggedInUserObject(data.user)
                 console.log(loggedInUserObject)
-                data.user.matches.forEach((match, i) => {
+                const reversedMatches = data.user.matches.reverse()
+                reversedMatches.forEach((match, i) => {
                     setMatchIncrementer(matchIncrementer + 1)
                     UserModel.show(match)
                         .then(data => {
